@@ -61,14 +61,17 @@ Creating a kernel instance and calling run() is enough to start the application.
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-use Symlex\Bootstrap;
+
+use Symlex\Bootstrap\ConsoleApp;
+
 $app = new ConsoleApp (__DIR__);
+
 $app->run();
 ```
 
 Routing and Rendering
 ---------------------
-Matching requests to controller actions is performed based on convention instead of extensive configuration. There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
+There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
 - `Symlex\Router\RestRouter` handles REST requests (JSON)
 - `Symlex\Router\ErrorRouter` renders exceptions as error messages (HTML or JSON)
@@ -76,16 +79,20 @@ Matching requests to controller actions is performed based on convention instead
 
 It's easy to create your own custom routing/rendering based on the existing examples.
 
-The application's HTTP kernel class initializes routing and sets optional URL/service name prefixes:
+The application's HTTP (WebApp) kernel class initializes routing and sets optional URL/service name prefixes:
 ```
 <?php
-namespace App;
-use Symlex\Bootstrap\App;
 
-class HttpApp extends App
+namespace Symlex\Bootstrap;
+
+class WebApp extends App
 {
     public function __construct($appPath, $debug = false)
     {
+        if($debug) {
+            ini_set('display_errors', 1);
+        }
+
         parent::__construct('web', $appPath, $debug);
     }
 
@@ -93,6 +100,7 @@ class HttpApp extends App
         parent::boot();
 
         $container = $this->getContainer();
+
         $container->get('router.error')->route();
         $container->get('router.rest')->route('/api', 'controller.rest.');
         $container->get('router.twig')->route('', 'controller.web.');
