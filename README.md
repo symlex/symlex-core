@@ -3,12 +3,14 @@ Symlex core components
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 
-You can find more documentation and a complete example (boilerplate) based on symlex-core at https://github.com/lastzero/symlex
+The symlex boilerplate contains more documentation and a complete example based on symlex-core:
+
+https://github.com/lastzero/symlex
 
 **The goal of this project is to simplify Silex development by providing a working system that favors convention over configuration.**
 
-Bootstrapping
--------------
+Bootstrap
+---------
 A light-weight kernel bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
@@ -69,8 +71,8 @@ $app = new ConsoleApp (__DIR__);
 $app->run();
 ```
 
-Routing and Rendering
----------------------
+Router
+------
 There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
 - `Symlex\Router\RestRouter` handles REST requests (JSON)
