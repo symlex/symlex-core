@@ -18,7 +18,7 @@ class App
     protected $name;
     protected $version = '1.0';
 
-    public function __construct($environment = 'dev', $appPath = '', $debug = false)
+    public function __construct($environment = 'app', $appPath = '', $debug = false)
     {
         $this->environment = $environment;
         $this->debug = $debug;

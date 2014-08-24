@@ -54,7 +54,7 @@ class ConsoleApp extends App
 }
 ```
 
-Creating a kernel instance and calling run() is enough to start the application (see `app/console` and `web/app.php`):
+Creating a kernel instance and calling run() is enough to start the application.
 
 ```
 #!/usr/bin/env php
