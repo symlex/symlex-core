@@ -147,3 +147,9 @@ Routing examples for the default HTTP kernel (`Symlex\Bootstrap\WebApp`):
 - `GET /api/user/123` will be routed to `controller.rest.user` service's `getAction($id, Request $request)`
 - `POST /api/user` will be routed to `controller.rest.user` service's `postAction(Request $request)`
 - `PUT /api/user/123/item/5` will be routed to `controller.rest.user` service's `putItemAction($id, $itemId, Request $request)`
+
+The routers pass on the request instance to each matched controller action as last argument. It contains request parameters and headers: http://symfony.com/doc/current/book/http_fundamentals.html#requests-and-responses-in-symfony
+
+Controller actions invoked by **TwigRouter** can either return nothing (the matching Twig template will be rendered), an array (the Twig template can access the values as variables) or a string (redirect URL). 
+
+REST controller actions (invoked by **RestRouter**) always return arrays, which are automatically converted to valid JSON. Delete actions can return null ("204 No Content").
