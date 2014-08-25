@@ -138,7 +138,7 @@ class WebApp extends App
 }
 ```
 
-Routing examples based on the default configuration:
+Routing examples for the default HTTP kernel (`Symlex\Bootstrap\WebApp`):
 - `GET /` will be routed to `controller.web.index` service's `indexAction(Request $request)`
 - `POST /session/login` will be routed to `controller.web.session` service's `postLoginAction(Request $request)`
 - `GET /api/user` will be routed to `controller.rest.user` service's `cgetAction(Request $request)`
