@@ -72,7 +72,7 @@ class App
 }
 ```
 
-The kernel base class can be extended to customize it for a specific purpose (e.g. command line application):
+The kernel base class can be extended to customize it for a specific purpose:
 
 ```
 <?php
@@ -95,7 +95,7 @@ class ConsoleApp extends App
 }
 ```
 
-Creating a kernel instance and calling run() is enough to start the application.
+Creating a kernel instance and calling run() is enough to start an application:
 
 ```
 #!/usr/bin/env php
