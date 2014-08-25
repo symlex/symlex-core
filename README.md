@@ -9,6 +9,45 @@ https://github.com/lastzero/symlex contains more documentation and a complete ap
 
 Bootstrap
 ---------
+YAML files located in `app/config/` (default) configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `app.yml`):
+
+```
+<?php
+
+namespace Symlex\Bootstrap;
+
+class App
+{
+    protected $environment;
+    protected $debug;
+    protected $appPath;
+
+    public function __construct($environment = 'app', $appPath = '', $debug = false)
+    {
+        $this->environment = $environment;
+        $this->debug = $debug;
+        $this->appPath = $appPath;
+
+        $this->boot();
+    }
+    
+    ...
+}
+```
+
+These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
+
+    services:
+        app:
+            class: Silex\Application
+
+This provides a uniform approach for bootstrapping Web and command-line applications with the same kernel.
+
+If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/`. You have to delete the cache after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
+
+    parameters:
+        container.cache: false
+
 A light-weight kernel bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
@@ -17,6 +56,8 @@ namespace Symlex\Bootstrap;
 
 class App
 {
+    ...
+    
     public function getApplication()
     {
         return $this->getContainer()->get('app');
