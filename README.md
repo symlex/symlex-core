@@ -1,5 +1,5 @@
-Symlex core components
-======================
+Symlex: Silex with Symfony DI Container
+=======================================
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 
