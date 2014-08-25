@@ -7,7 +7,7 @@ Symlex: Silex with Symfony DI Container
 
 Kernel / Bootstrapping
 ----------------------
-The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps Silex and Symfony Console applications. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
+The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
 <?php
@@ -44,7 +44,7 @@ class App
 }
 ```
 
-YAML files located in `$appPath/config/` configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `app.yml`). These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
+YAML files located in `$appPath/config/` configure the entire system via **dependecy injection**. The filename matches the application's environment name (e.g. `app.yml`). These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
 
     services:
         app:
