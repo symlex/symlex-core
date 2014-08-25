@@ -9,7 +9,7 @@ https://github.com/lastzero/symlex contains more documentation and a complete ap
 
 Bootstrap
 ---------
-YAML files located in `app/config/` (default) configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `app.yml`):
+YAML files located in `$appPath/config/` configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `app.yml`):
 
 ```
 <?php
