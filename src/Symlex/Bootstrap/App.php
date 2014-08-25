@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use ProjectServiceContainer as CachedContainer;
+use Symlex\Bootstrap\Exception\ContainerNotFoundException;
 
 class App
 {
@@ -74,11 +75,11 @@ class App
 
     /**
      * @return Container
-     * @throws Exception
+     * @throws ContainerNotFoundException
      */
     public function getContainer () {
         if(!$this->container) {
-            throw new Exception ('Container not set - maybe boot() was not executed?');
+            throw new ContainerNotFoundException ('Container not set - maybe boot() was not executed?');
         }
 
         return $this->container;
