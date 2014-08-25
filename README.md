@@ -94,7 +94,7 @@ $app->run();
 
 Caching
 -------
-If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/`. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
+If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/` by the kernel. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
 
     parameters:
         container.cache: false
