@@ -42,7 +42,6 @@ class App
             } else {
                 $this->container = new ContainerBuilder(new ParameterBag($this->getAppParameters()));
                 $this->loadContainerConfiguration();
-                $this->container->compile();
 
                 $dumper = new PhpDumper($this->container);
                 file_put_contents($filename, $dumper->dump());
