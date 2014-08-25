@@ -3,13 +3,12 @@ Symlex: Silex with Symfony DI Container
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 
-https://github.com/lastzero/symlex contains more documentation and a complete application based on symlex-core.
+Note: This repository only contains the Symlex kernel and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex
 
-**The goal of this project is to simplify Silex development by providing a working system that favors convention over configuration.**
 
 Bootstrapping
 -------------
-A light-weight kernel (`Symlex\Bootstrap\App`) bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
+The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps Silex and Symfony Console applications. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
 <?php
