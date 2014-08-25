@@ -9,7 +9,7 @@ https://github.com/lastzero/symlex contains more documentation and a complete ap
 
 Bootstrapping
 -------------
-A light-weight kernel bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
+A light-weight kernel (`Symlex\Bootstrap\App`) bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
 <?php
@@ -109,7 +109,7 @@ There are three router classes included in this library (they configure Silex to
 
 It's easy to create your own custom routing/rendering based on the existing examples.
 
-The application's HTTP (WebApp) kernel class initializes routing and sets optional URL/service name prefixes:
+The application's HTTP kernel class initializes the routers that were configured via dependency injection:
 ```
 <?php
 
@@ -137,6 +137,8 @@ class WebApp extends App
     }
 }
 ```
+
+The REST and Twig routers accept optional URL (e.g. `/api`) and service name prefixes (e.g. `controller.rest.`).
 
 Routing examples for the default HTTP kernel (`Symlex\Bootstrap\WebApp`):
 - `GET /` will be routed to `controller.web.index` service's `indexAction(Request $request)`
