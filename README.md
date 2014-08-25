@@ -3,11 +3,10 @@ Symlex: Silex with Symfony DI Container
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 
-Note: This repository only contains the Symlex kernel and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex
+*Note: This repository only contains the Symlex kernel and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex*
 
-
-Bootstrapping
--------------
+App Kernel
+----------
 The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps Silex and Symfony Console applications. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
@@ -91,15 +90,15 @@ $app = new ConsoleApp (__DIR__);
 $app->run();
 ```
 
-Caching
--------
+**Caching**
+
 If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/` by the kernel. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
 
     parameters:
         container.cache: false
 
-Routing and Rendering
----------------------
+Router
+------
 There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
 - `Symlex\Router\RestRouter` handles REST requests (JSON)
