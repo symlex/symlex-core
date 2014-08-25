@@ -3,9 +3,7 @@ Symlex core components
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 
-The symlex boilerplate contains more documentation and a complete example based on symlex-core:
-
-https://github.com/lastzero/symlex
+https://github.com/lastzero/symlex contains more documentation and a complete application based on symlex-core.
 
 **The goal of this project is to simplify Silex development by providing a working system that favors convention over configuration.**
 
