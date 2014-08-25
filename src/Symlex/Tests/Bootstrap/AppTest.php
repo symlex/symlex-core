@@ -19,7 +19,7 @@ class AppTest extends UnitTestCase
 
     public function setUp()
     {
-        $this->app = new App('sympathy_test', __DIR__ . '/App', true);
+        $this->app = new App('symlex_test', __DIR__ . '/App', true);
     }
 
     public function testGetName()
@@ -37,7 +37,7 @@ class AppTest extends UnitTestCase
     public function testGetEnvironment()
     {
         $result = $this->app->getEnvironment();
-        $this->assertEquals('sympathy_test', $result);
+        $this->assertEquals('symlex_test', $result);
     }
 
     public function testGetCharset()

@@ -1,0 +1,7 @@
+parameters:
+    container.cache: false
+    twig.path:
+        - 'foo/bar'
+    twig.options:
+        cache: %app.cache_path%
+        auto_reload: true

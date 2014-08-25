@@ -8,11 +8,15 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use ProjectServiceContainer as CachedContainer;
 
 class App
 {
-    protected $environment;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
     protected $container;
+    protected $environment;
     protected $appPath;
     protected $debug;
     protected $name;
@@ -33,20 +37,39 @@ class App
             $this->container = new ContainerBuilder(new ParameterBag($this->getAppParameters()));
             $this->loadContainerConfiguration();
         } else {
-            $environment =  $this->getEnvironment();
-            $filename = $this->getCachePath() . '/' . $environment . '_container.php';
+            $filename = $this->getContainerCacheFilename();
 
             if (file_exists($filename)) {
                 require_once($filename);
-                $this->container = new \ProjectServiceContainer();
+                $this->container = new CachedContainer();
             } else {
                 $this->container = new ContainerBuilder(new ParameterBag($this->getAppParameters()));
                 $this->loadContainerConfiguration();
 
-                $dumper = new PhpDumper($this->container);
-                file_put_contents($filename, $dumper->dump());
+                if ($this->containerIsCacheable()) {
+                    $dumper = new PhpDumper($this->container);
+                    file_put_contents($filename, $dumper->dump());
+                }
             }
         }
+    }
+
+    public function getContainerCacheFilename () {
+        $environment =  $this->getEnvironment();
+        $filename = $this->getCachePath() . '/' . $environment . '_container.php';
+
+        return $filename;
+    }
+
+    public function containerIsCacheable()
+    {
+        $result = true; // container is cacheable by default
+
+        if($this->container->hasParameter('container.cache')) {
+            $result = (bool) $this->container->getParameter('container.cache');
+        }
+
+        return $result;
     }
 
     /**
