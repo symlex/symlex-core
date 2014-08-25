@@ -7,13 +7,12 @@ https://github.com/lastzero/symlex contains more documentation and a complete ap
 
 **The goal of this project is to simplify Silex development by providing a working system that favors convention over configuration.**
 
-Bootstrap
----------
-YAML files located in `$appPath/config/` configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `app.yml`):
+Bootstrapping
+-------------
+A light-weight kernel bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
 <?php
-
 namespace Symlex\Bootstrap;
 
 class App
@@ -32,31 +31,6 @@ class App
     }
     
     ...
-}
-```
-
-These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
-
-    services:
-        app:
-            class: Silex\Application
-
-This provides a uniform approach for bootstrapping Web and command-line applications with the same kernel.
-
-If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/`. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
-
-    parameters:
-        container.cache: false
-
-A light-weight kernel bootstraps the application. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
-
-```
-<?php
-namespace Symlex\Bootstrap;
-
-class App
-{
-    ...
     
     public function getApplication()
     {
@@ -71,6 +45,14 @@ class App
     ...
 }
 ```
+
+YAML files located in `$appPath/config/` configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `app.yml`). These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
+
+    services:
+        app:
+            class: Silex\Application
+
+This provides a uniform approach for bootstrapping Web and command-line applications with the same kernel.
 
 The kernel base class can be extended to customize it for a specific purpose:
 
@@ -110,8 +92,15 @@ $app = new ConsoleApp (__DIR__);
 $app->run();
 ```
 
-Router
-------
+Caching
+-------
+If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/`. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
+
+    parameters:
+        container.cache: false
+
+Routing and Rendering
+---------------------
 There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
 - `Symlex\Router\RestRouter` handles REST requests (JSON)
