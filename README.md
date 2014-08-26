@@ -44,7 +44,7 @@ class App
 }
 ```
 
-YAML files located in `$appPath/config/` configure the entire system via **dependecy injection**. The filename matches the application's environment name (e.g. `app.yml`). These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
+YAML files located in `$appPath/config/` configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `console.yml`). These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
 
     services:
         app:
