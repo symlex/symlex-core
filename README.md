@@ -48,7 +48,7 @@ YAML files located in `$appPath/config/` configure the entire system via depende
         app:
             class: Silex\Application
 
-This provides a uniform approach for bootstrapping Web and command-line applications with the same kernel.
+This provides a uniform approach for bootstrapping Web (`Silex\Application`) and command-line (`Symfony\Component\Console\Application`) applications with the same kernel.
 
 The kernel base class can be extended to customize it for a specific purpose:
 
@@ -82,9 +82,7 @@ Creating a kernel instance and calling run() is enough to start an application:
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Symlex\Bootstrap\ConsoleApp;
-
 $app = new ConsoleApp (__DIR__);
-
 $app->run();
 ```
 
