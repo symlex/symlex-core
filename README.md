@@ -3,7 +3,7 @@ Symlex: Silex + Symfony DI Container
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 
-*Note: This repository only contains the Symlex kernel and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex*
+*Note: This repository only contains the bootstrap and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex*
 
 Kernel / Bootstrapping
 ----------------------
