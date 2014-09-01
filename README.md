@@ -5,8 +5,8 @@ Symlex: Silex + Symfony DI Container
 
 *Note: This repository only contains the bootstrap and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex*
 
-Kernel / Bootstrapping
-----------------------
+Bootstrap
+---------
 The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
