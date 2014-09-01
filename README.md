@@ -39,8 +39,6 @@ class App
     {
         return $this->getApplication()->run();
     }
-    
-    ...
 }
 ```
 
