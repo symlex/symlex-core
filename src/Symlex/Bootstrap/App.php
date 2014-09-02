@@ -46,6 +46,7 @@ class App
             } else {
                 $this->container = new ContainerBuilder(new ParameterBag($this->getAppParameters()));
                 $this->loadContainerConfiguration();
+                $this->container->compile();
 
                 if ($this->containerIsCacheable()) {
                     $dumper = new PhpDumper($this->container);
