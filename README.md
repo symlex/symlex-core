@@ -95,8 +95,8 @@ If debug mode is turned off, the dependency injection container configuration is
     parameters:
         container.cache: false
 
-Router
-------
+Routers
+-------
 There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
 - `Symlex\Router\RestRouter` handles REST requests (JSON)
@@ -149,3 +149,42 @@ The routers pass on the request instance to each matched controller action as la
 Controller actions invoked by **TwigRouter** can either return nothing (the matching Twig template will be rendered), an array (the Twig template can access the values as variables) or a string (redirect URL). 
 
 REST controller actions (invoked by **RestRouter**) always return arrays, which are automatically converted to valid JSON. Delete actions can return null ("204 No Content").
+
+Interceptors
+------------
+HTTP interceptors can be used to perform HTTP authentication or other actions (e.g. blocking certain IP ranges) **before** routing a request:
+
+```
+<?php
+
+use Symlex\Bootstrap\App;
+
+class HttpApp extends App
+{
+    public function __construct($appPath, $debug = false)
+    {
+        parent::__construct('web', $appPath, $debug);
+    }
+
+    public function boot () {
+        parent::boot();
+
+        $container = $this->getContainer();
+
+        /*
+         * In app/config/web.yml:
+         *
+         * services:
+         *     http.interceptor:
+         *         class: Symlex\Router\HttpInterceptor
+         */
+        $interceptor = $container->get('http.interceptor');
+        $interceptor->digestAuth('Realm', array('foouser' => 'somepassword'));
+
+        $container->get('router.error')->route();
+        $container->get('router.rest')->route('/api', 'controller.rest.');
+        $container->get('router.twig')->route('', 'controller.web.');
+    }
+}
+```
+
