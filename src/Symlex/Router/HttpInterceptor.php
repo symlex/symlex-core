@@ -12,11 +12,18 @@ class HttpInterceptor
     /**
      * Perform digest HTTP authentication
      *
+     * Note: HTTP authentication is disabled, if application
+     * runs in command-line (CLI) mode
+     *
      * @param string $realm
      * @param array $users username => password
      */
     public function digestAuth($realm, array $users)
     {
+        if ($this->isCLIRequest()) {
+            return;
+        }
+
         if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Digest realm="' . $realm .
@@ -28,8 +35,9 @@ class HttpInterceptor
         // analyze the PHP_AUTH_DIGEST variable
         if (!($data = $this->httpDigestParse($_SERVER['PHP_AUTH_DIGEST'])) ||
             !isset($users[$data['username']])
-        )
-            die('Wrong Credentials!');
+        ) {
+            die('Wrong credentials');
+        }
 
         $A1 = md5($data['username'] . ':' . $realm . ':' . $users[$data['username']]);
         $A2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
@@ -53,6 +61,21 @@ class HttpInterceptor
         }
     }
 
+    /**
+     * Checks, if application runs in command line (CLI) mode
+     *
+     * @return bool
+     */
+    protected function isCLIRequest()
+    {
+        return php_sapi_name() === 'cli';
+    }
+
+    /**
+     * Checks, if application is requested via secure SSL
+     *
+     * @return bool
+     */
     protected function isSSLRequest()
     {
         if (isset($_SERVER['HTTPS'])) {
@@ -70,6 +93,12 @@ class HttpInterceptor
         return false;
     }
 
+    /**
+     * Helper method for digestAuth()
+     *
+     * @param string $txt
+     * @return array|bool
+     */
     protected function httpDigestParse($txt)
     {
         $needed_parts = array('nonce' => 1, 'nc' => 1, 'cnonce' => 1, 'qop' => 1, 'username' => 1, 'uri' => 1, 'response' => 1);
