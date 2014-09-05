@@ -18,7 +18,7 @@
         "silex/silex": "~1.2",
         "symfony/symfony": "~2.5",
         "phpunit/phpunit": "3.7.*",
-        "lastzero/test-tools": "~0.7",
+        "lastzero/test-tools": "*",
         "twig/twig": "~1.12"
     },
     "require-dev": {
