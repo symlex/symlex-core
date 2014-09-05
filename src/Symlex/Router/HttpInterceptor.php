@@ -25,18 +25,15 @@ class HttpInterceptor
         }
 
         if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Digest realm="' . $realm .
-                '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
+            $this->sendAuthenticateHeader ($realm);
 
-            die('Authentication is required to view this site');
+            exit();
         }
 
-        // analyze the PHP_AUTH_DIGEST variable
-        if (!($data = $this->httpDigestParse($_SERVER['PHP_AUTH_DIGEST'])) ||
-            !isset($users[$data['username']])
-        ) {
-            die('Wrong credentials');
+        if (!($data = $this->httpDigestParse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[$data['username']])) {
+            $this->sendAuthenticateHeader ($realm);
+
+            exit();
         }
 
         $A1 = md5($data['username'] . ':' . $realm . ':' . $users[$data['username']]);
@@ -45,7 +42,9 @@ class HttpInterceptor
         $valid_response = md5($A1 . ':' . $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $A2);
 
         if ($data['response'] != $valid_response) {
-            die('Invalid login');
+            $this->sendAuthenticateHeader ($realm);
+
+            exit();
         }
     }
 
@@ -113,5 +112,16 @@ class HttpInterceptor
         }
 
         return $needed_parts ? false : $data;
+    }
+
+    /**
+     * Send HTTP auth header
+     *
+     * @param $realm
+     */
+    protected function sendAuthenticateHeader ($realm) {
+        header('HTTP/1.1 401 Unauthorized');
+        header('WWW-Authenticate: Digest realm="' . $realm .
+            '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
     }
 }
