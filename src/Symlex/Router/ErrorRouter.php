@@ -67,11 +67,17 @@ class ErrorRouter
     }
 
     protected function getErrorDetails (\Exception $exception, $code) {
+        if (isset($this->exceptionMessages[$code])) {
+            $error = $this->exceptionMessages[$code];
+        } else {
+            $error = $exception->getMessage();
+        }
+
         if ($this->debug) {
             $message = $exception->getMessage();
 
-            if (empty($message) && isset($this->exceptionMessages[$code])) {
-                $message = $this->exceptionMessages[$code];
+            if (empty($message)) {
+                $message = $error;
             }
 
             $class = get_class($exception);
@@ -79,12 +85,7 @@ class ErrorRouter
             $line = $exception->getLine();
             $trace = $exception->getTrace();
         } else {
-            if (isset($this->exceptionMessages[$code])) {
-                $message = $this->exceptionMessages[$code];
-            } else {
-                $message = $exception->getMessage();
-            }
-
+            $message = $error;
             $class = 'Exception';
             $file = '';
             $line = '';
@@ -92,6 +93,7 @@ class ErrorRouter
         }
 
         $result = array(
+            'error' => $error,
             'message' => $message,
             'code' => $code,
             'class' => $class,
