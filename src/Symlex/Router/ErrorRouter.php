@@ -75,6 +75,8 @@ class ErrorRouter
             }
 
             $class = get_class($exception);
+            $file = $exception->getFile();
+            $line = $exception->getLine();
             $trace = $exception->getTrace();
         } else {
             if (isset($this->exceptionMessages[$code])) {
@@ -84,6 +86,8 @@ class ErrorRouter
             }
 
             $class = 'Exception';
+            $file = '';
+            $line = '';
             $trace = array();
         }
 
@@ -91,6 +95,8 @@ class ErrorRouter
             'message' => $message,
             'code' => $code,
             'class' => $class,
+            'file' => $file,
+            'line' => $line,
             'trace' => $trace
         );
 
