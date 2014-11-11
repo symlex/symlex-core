@@ -19,7 +19,9 @@ class RestRouter extends Router
                 $request->request->replace(is_array($data) ? $data : array());
             }
 
-            $prefix = strtolower($request->getMethod());
+            $method = $request->getMethod();
+
+            $prefix = strtolower($method);
             $parts = explode('/', $path);
 
             $controller = array_shift($parts);
@@ -50,7 +52,7 @@ class RestRouter extends Router
             $controllerInstance = $this->getController($controllerService);
 
             if (!method_exists($controllerInstance, $actionName)) {
-                throw new MethodNotAllowedException ('Method ' . $request->getMethod() . ' not supported');
+                throw new MethodNotAllowedException ('Method ' . $method . ' not supported');
             }
 
             if (!$this->hasPermission($request)) {
@@ -61,6 +63,8 @@ class RestRouter extends Router
 
             if(!$result) {
                 $httpCode = 204;
+            } elseif($method == 'POST') {
+                $httpCode = 201;
             } else {
                 $httpCode = 200;
             }
