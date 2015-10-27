@@ -21,7 +21,8 @@
         "twig/twig": "~1.12"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable"
+        "phpunit/phpunit": "@stable",
+        "sstalle/php7cc": "*"
     },
     "autoload": {
         "psr-0": { "Symlex": "src/" }
