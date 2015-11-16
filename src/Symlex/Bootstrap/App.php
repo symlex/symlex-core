@@ -10,41 +10,63 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use ProjectServiceContainer as CachedContainer;
 use Symlex\Bootstrap\Exception\ContainerNotFoundException;
+use Symlex\Bootstrap\Exception\Exception;
 
 class App
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\Container
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
      */
     protected $container;
     protected $environment;
     protected $appPath;
+    protected $configPath;
+    protected $logPath;
+    protected $cachePath;
+    protected $charSet;
     protected $debug;
     protected $name;
     protected $version = '1.0';
+    protected $appInitialized = false;
 
     public function __construct($environment = 'app', $appPath = '', $debug = false)
     {
         $this->environment = $environment;
         $this->debug = $debug;
         $this->appPath = $appPath;
+    }
 
-        $this->boot();
+    public function setContainer(Container $container)
+    {
+        if ($this->container instanceof Container) {
+            throw new Exception('Container already set');
+        }
+
+        $this->container = $container;
+    }
+
+    protected function hasBooted()
+    {
+        $result = $this->container instanceof Container;
+
+        return $result;
     }
 
     protected function boot()
     {
+        if ($this->hasBooted()) return; // Nothing to do
+
         if($this->debug) {
-            $this->container = new ContainerBuilder(new ParameterBag($this->getAppParameters()));
+            $this->setContainer(new ContainerBuilder(new ParameterBag($this->getAppParameters())));
             $this->loadContainerConfiguration();
         } else {
             $filename = $this->getContainerCacheFilename();
 
             if (file_exists($filename)) {
                 require_once($filename);
-                $this->container = new CachedContainer();
+                $this->setContainer(new CachedContainer());
             } else {
-                $this->container = new ContainerBuilder(new ParameterBag($this->getAppParameters()));
+                $this->setContainer(new ContainerBuilder(new ParameterBag($this->getAppParameters())));
                 $this->loadContainerConfiguration();
                 $this->container->compile();
 
@@ -75,12 +97,12 @@ class App
     }
 
     /**
-     * @return Container
+     * @return ContainerBuilder
      * @throws ContainerNotFoundException
      */
     public function getContainer () {
         if(!$this->container) {
-            throw new ContainerNotFoundException ('Container not set - maybe boot() was not executed?');
+            $this->boot();
         }
 
         return $this->container;
@@ -117,22 +139,58 @@ class App
 
     public function getCharset()
     {
-        return 'UTF-8';
+        if ($this->charSet == '') {
+            $this->setCharset('UTF-8');
+        }
+
+        return $this->charSet;
+    }
+
+    public function setCharset($charSet)
+    {
+        $this->charSet = $charSet;
     }
 
     public function getLogPath()
     {
-        return realpath($this->getAppPath() . '/../var/log');
+        if ($this->logPath == '') {
+            $this->setLogPath(realpath($this->getAppPath() . '/../var/log'));
+        }
+
+        return $this->logPath;
+    }
+
+    public function setLogPath($logPath)
+    {
+        $this->logPath = $logPath;
     }
 
     public function getConfigPath()
     {
-        return $this->getAppPath() . '/config';
+        if ($this->configPath == '') {
+            $this->setConfigPath($this->getAppPath() . '/config');
+        }
+
+        return $this->configPath;
+    }
+
+    public function setConfigPath($configPath)
+    {
+        $this->configPath = $configPath;
     }
 
     public function getCachePath()
     {
-        return realpath($this->getAppPath() . '/../var/cache');
+        if ($this->cachePath == '') {
+            $this->setCachePath(realpath($this->getAppPath() . '/../var/cache'));
+        }
+
+        return $this->cachePath;
+    }
+
+    public function setCachePath($cachePath)
+    {
+        $this->cachePath = $cachePath;
     }
 
     public function getAppPath()
@@ -176,13 +234,33 @@ class App
         }
     }
 
-    public function getApplication()
+    protected function appIsUninitialized () {
+        return !$this->appInitialized;
+    }
+
+    protected function getApplication()
     {
-        return $this->getContainer()->get('app');
+        if($this->appIsUninitialized()) {
+            $this->setUp();
+        }
+
+        $result = $this->getContainer()->get('app');
+
+        $this->appInitialized = true;
+
+        return $result;
+    }
+
+    protected function setUp()
+    {
+        // To be implemented (optionally)
     }
 
     public function run()
     {
-        return $this->getApplication()->run();
+        $arguments = func_get_args();
+        $application = $this->getApplication();
+
+        return call_user_func_array(array($application, 'run'), $arguments);
     }
 }

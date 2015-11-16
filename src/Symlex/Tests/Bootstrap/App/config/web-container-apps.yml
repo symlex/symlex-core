@@ -1,0 +1,14 @@
+web:
+    prefix: /web
+    app: \Symlex\Tests\Bootstrap\App\WebApp
+    config: config/web.yml
+
+example.com:
+    prefix: /foo
+    domain: www.example.com
+    app: \Symlex\Tests\Bootstrap\App\WebApp
+    config: config/web.yml
+
+default:
+    app: \Symlex\Tests\Bootstrap\App\App
+    config: config/symlex_test.yml

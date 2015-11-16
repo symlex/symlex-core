@@ -5,11 +5,6 @@ namespace Symlex\Tests\Router;
 use TestTools\TestCase\UnitTestCase;
 use Symlex\Router\ErrorRouter;
 
-/**
- * @author Michael Mayer <michael@liquidbytes.net>
- * @package Sympathy
- * @license MIT
- */
 class ErrorRouterTest extends UnitTestCase
 {
     /**

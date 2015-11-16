@@ -1,0 +1,45 @@
+imports:
+    - { resource: twig.yml }
+
+parameters:
+    container.cache: false
+
+    exception.codes:
+        InvalidArgumentException: 400
+        Sympathy\Db\NotFoundException: 404
+        App\Exception\UnauthorizedException: 401
+        App\Exception\AccessDeniedException: 403
+        Symlex\Router\Exception\AccessDeniedException: 403
+        Symlex\Router\Exception\NotFoundException: 404
+        Symlex\Router\Exception\MethodNotAllowedException: 405
+        App\Exception\FormInvalidException: 409
+        Exception: 500
+
+    exception.messages:
+        400: 'Bad request'
+        401: 'Unauthorized'
+        402: 'Payment Required'
+        403: 'Forbidden'
+        404: 'Not Found'
+        405: 'Method Not Allowed'
+        406: 'Not Acceptable'
+        407: 'Proxy Authentication Required'
+        408: 'Request Timeout'
+        409: 'Conflict'
+        410: 'Gone'
+        500: 'Looks like something went wrong!'
+
+services:
+    app:
+        class: Silex\Application
+
+    controller.rest.example:
+        class: Symlex\Tests\Bootstrap\App\ExampleRestController
+
+    router.rest:
+        class: Symlex\Router\RestRouter
+        arguments: [ @app, @service_container ]
+
+    router.error:
+        class: Symlex\Router\ErrorRouter
+        arguments: [ @app, @twig, %exception.codes%, %exception.messages%, %app.debug% ]

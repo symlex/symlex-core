@@ -3,18 +3,18 @@
 namespace Symlex\Tests\Bootstrap;
 
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Tests\Bootstrap\App\App;
+use Symlex\Tests\Bootstrap\App\WebApp;
 
-class AppTest extends UnitTestCase
+class WebAppTest extends UnitTestCase
 {
     /**
-     * @var App
+     * @var WebApp
      */
     protected $app;
 
     public function setUp()
     {
-        $this->app = new App('symlex_test', __DIR__ . '/App', true);
+        $this->app = new WebApp(__DIR__ . '/App', true);
     }
 
     public function testGetName()
@@ -32,7 +32,7 @@ class AppTest extends UnitTestCase
     public function testGetEnvironment()
     {
         $result = $this->app->getEnvironment();
-        $this->assertEquals('symlex_test', $result);
+        $this->assertEquals('web', $result);
     }
 
     public function testGetCharset()
@@ -61,5 +61,13 @@ class AppTest extends UnitTestCase
         $result = $this->app->getContainer();
 
         $this->assertInstanceOf('\Symfony\Component\DependencyInjection\Container', $result);
+    }
+
+    public function testRun () {
+        ob_start();
+        $this->app->run();
+        $result = ob_get_clean();
+
+        $this->assertContains('No route found for', $result);
     }
 }

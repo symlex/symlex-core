@@ -9,12 +9,10 @@ class ConsoleApp extends App
         parent::__construct('console', $appPath, $debug);
     }
 
-    public function boot()
+    public function setUp()
     {
         chdir($this->getAppPath());
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-
-        parent::boot();
     }
 }

@@ -5,3 +5,7 @@ parameters:
     twig.options:
         cache: %app.cache_path%
         auto_reload: true
+
+services:
+    app:
+        class: Silex\Application
