@@ -16,7 +16,7 @@ class WebAppContainerTest extends UnitTestCase
     public function testRunWeb () {
         $request = Request::create('http://www.bar.com/web/api/example/99');
 
-        $this->app = new WebAppContainer('web-container', __DIR__ . '/App', true);
+        $this->app = new WebAppContainer('web', __DIR__ . '/ContainerApp', true);
 
         $this->app->setRequest($request);
 
@@ -30,7 +30,7 @@ class WebAppContainerTest extends UnitTestCase
     public function testRunExampleCom () {
         $request = Request::create('http://www.example.com/foo/api/example/88');
 
-        $this->app = new WebAppContainer('web-container', __DIR__ . '/App', true);
+        $this->app = new WebAppContainer('web', __DIR__ . '/ContainerApp', true);
 
         $this->app->setRequest($request);
 
@@ -44,7 +44,7 @@ class WebAppContainerTest extends UnitTestCase
     public function testRunNotFound () {
         $request = Request::create('http://www.example2.com/foo/api/example/88');
 
-        $this->app = new WebAppContainer('web-container', __DIR__ . '/App', true);
+        $this->app = new WebAppContainer('web', __DIR__ . '/ContainerApp', true);
 
         $this->app->setRequest($request);
 

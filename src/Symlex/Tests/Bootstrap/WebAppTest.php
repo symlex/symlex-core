@@ -3,7 +3,7 @@
 namespace Symlex\Tests\Bootstrap;
 
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Tests\Bootstrap\App\WebApp;
+use Symlex\Bootstrap\WebApp;
 
 class WebAppTest extends UnitTestCase
 {
@@ -68,6 +68,6 @@ class WebAppTest extends UnitTestCase
         $this->app->run();
         $result = ob_get_clean();
 
-        $this->assertContains('No route found for', $result);
+        $this->assertEquals('Hello World!', $result);
     }
 }

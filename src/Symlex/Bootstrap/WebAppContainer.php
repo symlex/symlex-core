@@ -55,7 +55,14 @@ class WebAppContainer extends App
 
     public function addApp($name, $app)
     {
-        $app = array('name' => $name) + $app;
+        // Replace relative with absolute paths
+        foreach($app as $key => $value) {
+            if(substr($key, -4) === 'path' && strpos($value, '/') !== 0) {
+                $app[$key] = realpath($this->getAppPath() . '/../' . $value);
+            }
+        }
+
+        $app = array('label' => $name) + $app;
 
         $prefix = isset($app['prefix']) ? $app['prefix'] : '/';
         $domain = isset($app['domain']) ? $app['domain'] : '*';
@@ -89,35 +96,62 @@ class WebAppContainer extends App
         $environment = $this->getEnvironment();
         $app = $this->getActiveApp();
 
-        $filename = $this->getCachePath() . '/' . $environment . '_' . $app['name'] . '_container.php';
+        $filename = $this->getCachePath() . '/' . $environment . '_' . $app['label'] . '_container.php';
 
         return $filename;
+    }
+
+    protected function getActiveAppConfigPath () {
+        $activeApp = $this->getActiveApp();
+
+        if(isset($activeApp['config_path'])) {
+            $result = $activeApp['config_path'];
+        } else {
+            $result = isset($activeApp['path']) ? $activeApp['path'] . '/config' : $this->getConfigPath();
+        }
+
+        return $result;
+    }
+
+    protected function getActiveAppPath () {
+        $activeApp = $this->getActiveApp();
+
+        $result = isset($activeApp['path']) ? $activeApp['path'] : $this->getAppPath();
+
+        return $result;
     }
 
     protected function loadContainerConfiguration()
     {
         parent::loadContainerConfiguration();
 
-        $app = $this->getActiveApp();
+        $activeApp = $this->getActiveApp();
 
-        $appPath = $this->getAppPath();
+        foreach($activeApp as $key => $value) {
+            $this->getContainer()->setParameter('app.' . $key, $value);
+        }
+
         $configPath = $this->getConfigPath();
         $environment = $this->getEnvironment();
 
-        $appConfigLoader = new YamlFileLoader($this->getContainer(), new FileLocator($appPath));
+        if(isset($activeApp['config'])) {
+            $activeAppConfigPath = $this->getActiveAppConfigPath();
 
-        if (isset($app['config']) && file_exists($appPath . '/' . $app['config'])) {
-            $appConfigLoader->load($app['config']);
+            $activeAppConfigLoader = new YamlFileLoader($this->getContainer(), new FileLocator($activeAppConfigPath));
+
+            if (file_exists($activeAppConfigPath . '/' . $activeApp['config'])) {
+                $activeAppConfigLoader->load($activeApp['config']);
+            }
         }
 
         $localConfigLoader = new YamlFileLoader($this->getContainer(), new FileLocator($configPath));
 
-        if (file_exists($configPath . '/' . $environment . '.' . $app['name'] . '.yml')) {
-            $localConfigLoader->load($environment . $app['name'] . '.yml');
+        if (file_exists($configPath . '/' . $environment . '.' . $activeApp['label'] . '.yml')) {
+            $localConfigLoader->load($environment . $activeApp['label'] . '.yml');
         }
 
-        if (file_exists($configPath . '/' . $environment . '.' . $app['name'] . '.local.yml')) {
-            $localConfigLoader->load($environment . $app['name'] . '.local.yml');
+        if (file_exists($configPath . '/' . $environment . '.' . $activeApp['label'] . '.local.yml')) {
+            $localConfigLoader->load($environment . $activeApp['label'] . '.local.yml');
         }
     }
 
@@ -125,9 +159,10 @@ class WebAppContainer extends App
     {
         $this->boot();
 
-        $app = $this->getActiveApp();
-        $appClass = $app['app'];
-        $appPath = $this->getAppPath();
+        $activeApp = $this->getActiveApp();
+
+        $appClass = $activeApp['bootstrap'];
+        $appPath = $this->getActiveAppPath();
 
         $bootstrap = new $appClass ($appPath, $this->debug);
 
@@ -136,7 +171,7 @@ class WebAppContainer extends App
         }
 
         if(method_exists($bootstrap, 'setUrlPrefix')) {
-            $bootstrap->setUrlPrefix($app['prefix']);
+            $bootstrap->setUrlPrefix($activeApp['prefix']);
         }
 
         return $bootstrap;

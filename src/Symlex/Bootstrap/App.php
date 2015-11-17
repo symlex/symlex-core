@@ -20,6 +20,7 @@ class App
     protected $container;
     protected $environment;
     protected $appPath;
+    protected $srcPath;
     protected $configPath;
     protected $logPath;
     protected $cachePath;
@@ -193,14 +194,33 @@ class App
         $this->cachePath = $cachePath;
     }
 
+    public function getSrcPath()
+    {
+        if ($this->srcPath == '') {
+            $this->setSrcPath(realpath($this->getAppPath() . '/../src'));
+        }
+
+        return $this->srcPath;
+    }
+
+    public function setSrcPath($srcPath)
+    {
+        $this->srcPath = $srcPath;
+    }
+
     public function getAppPath()
     {
         if ($this->appPath == '') {
             $r = new \ReflectionObject($this);
-            $this->appPath = str_replace('\\', '/', dirname($r->getFileName()));
+            $this->setAppPath(str_replace('\\', '/', dirname($r->getFileName())));
         }
 
         return $this->appPath;
+    }
+
+    public function setAppPath($appPath)
+    {
+        $this->appPath = $appPath;
     }
 
     public function getAppParameters()
@@ -212,6 +232,7 @@ class App
             'app.debug' => $this->debug,
             'app.charset' => $this->getCharset(),
             'app.path' => $this->getAppPath(),
+            'app.src_path' => $this->getSrcPath(),
             'app.cache_path' => $this->getCachePath(),
             'app.log_path' => $this->getLogPath(),
             'app.config_path' => $this->getConfigPath(),

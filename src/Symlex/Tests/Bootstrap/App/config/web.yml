@@ -36,9 +36,16 @@ services:
     controller.rest.example:
         class: Symlex\Tests\Bootstrap\App\ExampleRestController
 
+    controller.web.index:
+        class: Symlex\Tests\Bootstrap\App\ExampleWebController
+
     router.rest:
         class: Symlex\Router\RestRouter
         arguments: [ @app, @service_container ]
+
+    router.twig:
+        class: Symlex\Router\TwigRouter
+        arguments: [ @app, @service_container, @twig ]
 
     router.error:
         class: Symlex\Router\ErrorRouter
