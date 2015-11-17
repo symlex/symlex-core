@@ -9,13 +9,11 @@ class WebAppHypervisor extends AppHypervisor
 {
     protected $request;
 
-    public function __construct($environment = 'web', $appPath = '', $debug = false)
+    public function init()
     {
-        if ($debug) {
+        if ($this->debug) {
             ini_set('display_errors', 1);
         }
-
-        parent::__construct($environment, $appPath, $debug);
     }
 
     public function setRequest(Request $request)

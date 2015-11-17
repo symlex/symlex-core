@@ -35,6 +35,8 @@ class App
         $this->environment = $environment;
         $this->debug = $debug;
         $this->appPath = $appPath;
+
+        $this->init();
     }
 
     public function setContainer(Container $container)
@@ -44,6 +46,11 @@ class App
         }
 
         $this->container = $container;
+    }
+
+    protected function init()
+    {
+        // Optional
     }
 
     protected function hasBooted()
@@ -274,7 +281,7 @@ class App
 
     protected function setUp()
     {
-        // To be implemented (optionally)
+        // Optional
     }
 
     public function run()

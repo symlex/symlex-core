@@ -8,11 +8,14 @@ class WebApp extends App
 
     public function __construct($appPath, $debug = false)
     {
-        if ($debug) {
+        parent::__construct('web', $appPath, $debug);
+    }
+
+    public function init()
+    {
+        if ($this->debug) {
             ini_set('display_errors', 1);
         }
-
-        parent::__construct('web', $appPath, $debug);
     }
 
     public function getUrlPrefix($urlPrefixPostfix = '')
