@@ -77,8 +77,9 @@ class WebAppHypervisor extends AppHypervisor
 
         $guestAppClass = $config['bootstrap'];
         $guestAppPath = $this->getGuestAppPath();
+        $guestAppDebug = isset($config['debug']) ? (bool) $config['debug'] : $this->debug;
 
-        $result = new $guestAppClass ($guestAppPath, $this->debug);
+        $result = new $guestAppClass ($guestAppPath, $guestAppDebug);
 
         return $result;
     }
