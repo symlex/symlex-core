@@ -7,11 +7,25 @@ use Symfony\Component\Config\FileLocator;
 use Symlex\Bootstrap\Exception\Exception;
 use Symfony\Component\Yaml\Parser as YamlParser;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 abstract class AppHypervisor extends App
 {
-    protected $guestsApps = array();
+    /**
+     * @var array
+     */
+    protected $guestApps = array();
+
+    /**
+     * @var array
+     */
     protected $guestAppConfig;
-    protected $guestApp;
+
+    /**
+     * @var YamlParser
+     */
     protected $yamlParser;
 
     public function __construct($environment = 'hypervisor', $appPath = '', $debug = false)
@@ -47,12 +61,12 @@ abstract class AppHypervisor extends App
 
         $guestAppConfig = array('label' => $label) + $guestAppConfig;
 
-        $this->guestsApps[$label] = $guestAppConfig;
+        $this->guestApps[$label] = $guestAppConfig;
     }
 
     public function removeGuestAppConfig($label)
     {
-        unset($this->guestsApps[$label]);
+        unset($this->guestApps[$label]);
     }
 
     public function setGuestAppConfig($guestAppConfig)

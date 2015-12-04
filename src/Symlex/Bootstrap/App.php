@@ -12,6 +12,10 @@ use ProjectServiceContainer as CachedContainer;
 use Symlex\Bootstrap\Exception\ContainerNotFoundException;
 use Symlex\Bootstrap\Exception\Exception;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class App
 {
     /**

@@ -6,6 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symlex\Router\Exception\MethodNotAllowedException;
 use Symlex\Router\Exception\AccessDeniedException;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class RestRouter extends Router
 {
     public function route($routePrefix = '/api', $servicePrefix = 'controller.rest.', $servicePostfix = '')

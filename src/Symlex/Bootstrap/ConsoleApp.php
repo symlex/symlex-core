@@ -2,6 +2,10 @@
 
 namespace Symlex\Bootstrap;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class ConsoleApp extends App
 {
     public function __construct($appPath, $debug = false)

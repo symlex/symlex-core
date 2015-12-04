@@ -12,6 +12,10 @@ use Symlex\Router\Exception\NotFoundException;
 use Symlex\Router\Exception\AccessDeniedException;
 use Symlex\Router\Exception\MethodNotAllowedException;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class TwigRouter extends Router
 {
     protected $twig;

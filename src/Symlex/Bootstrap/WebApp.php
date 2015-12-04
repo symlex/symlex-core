@@ -2,6 +2,10 @@
 
 namespace Symlex\Bootstrap;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class WebApp extends App
 {
     protected $urlPrefix = '';

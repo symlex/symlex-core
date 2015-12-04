@@ -5,6 +5,10 @@ namespace Symlex\Tests\Router;
 use TestTools\TestCase\UnitTestCase;
 use Symlex\Router\ErrorRouter;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class ErrorRouterTest extends UnitTestCase
 {
     /**

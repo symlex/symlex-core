@@ -5,6 +5,10 @@ namespace Symlex\Tests\Bootstrap;
 use TestTools\TestCase\UnitTestCase;
 use Symlex\Bootstrap\WebApp;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class WebAppTest extends UnitTestCase
 {
     /**

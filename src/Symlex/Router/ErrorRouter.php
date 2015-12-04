@@ -8,6 +8,10 @@ use Twig_Error_Loader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class ErrorRouter
 {
     protected $app;

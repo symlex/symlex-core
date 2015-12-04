@@ -5,6 +5,10 @@ namespace Symlex\Bootstrap;
 use Symfony\Component\HttpFoundation\Request;
 use Symlex\Bootstrap\Exception\Exception;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class WebAppHypervisor extends AppHypervisor
 {
     protected $request;
@@ -39,7 +43,7 @@ class WebAppHypervisor extends AppHypervisor
 
         $domain = $this->getRequest()->getHost();
 
-        foreach ($this->guestsApps as $guestAppConfig) {
+        foreach ($this->guestApps as $guestAppConfig) {
             $appPrefix = isset($guestAppConfig['prefix']) ? $guestAppConfig['prefix'] : '';
             $appDomain = isset($guestAppConfig['domain']) ? $guestAppConfig['domain'] : '*';
 

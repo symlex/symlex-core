@@ -6,6 +6,9 @@ namespace Symlex\Router;
  * An interceptor can be used in addition to routers for performing HTTP
  * authentication or intercepting certain requests (e.g. blocking or
  * redirecting requests coming from specified IP ranges)
+ *
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
  */
 class HttpInterceptor
 {

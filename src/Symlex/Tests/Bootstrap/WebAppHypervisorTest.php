@@ -6,6 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use TestTools\TestCase\UnitTestCase;
 use Symlex\Bootstrap\WebAppHypervisor;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class WebAppContainerTest extends UnitTestCase
 {
     /**

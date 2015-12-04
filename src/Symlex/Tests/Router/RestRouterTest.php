@@ -5,6 +5,10 @@ namespace Symlex\Tests\Router;
 use TestTools\TestCase\UnitTestCase;
 use Symlex\Router\RestRouter;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class RestRouterTest extends UnitTestCase
 {
     /**

@@ -8,6 +8,10 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symlex\Router\Exception\NotFoundException;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 abstract class Router {
     protected $app;
     protected $container;

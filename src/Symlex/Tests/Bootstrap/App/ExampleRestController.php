@@ -4,6 +4,10 @@ namespace Symlex\Tests\Bootstrap\App;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @author Michael Mayer <michael@lastzero.net>
+ * @license MIT
+ */
 class ExampleRestController
 {
     public function cgetAction()
