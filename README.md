@@ -10,7 +10,7 @@ Symlex: Silex + Symfony DI Container
 
 Bootstrap
 ---------
-The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 150 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
+The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 300 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
 ```
 <?php
@@ -28,19 +28,30 @@ class App
         $this->debug = $debug;
         $this->appPath = $appPath;
 
-        $this->boot();
+        $this->init();
     }
     
     ...
     
     public function getApplication()
     {
-        return $this->getContainer()->get('app');
+        if($this->appIsUninitialized()) {
+            $this->setUp();
+        }
+
+        $result = $this->getContainer()->get('app');
+
+        $this->appInitialized = true;
+
+        return $result;
     }
     
     public function run()
     {
-        return $this->getApplication()->run();
+        $arguments = func_get_args();
+        $application = $this->getApplication();
+
+        return call_user_func_array(array($application, 'run'), $arguments);
     }
 }
 ```
@@ -66,12 +77,10 @@ class ConsoleApp extends App
         parent::__construct('console', $appPath, $debug);
     }
 
-    public function boot()
+    public function setUp()
     {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-
-        parent::boot();
     }
 }
 ```
@@ -95,6 +104,32 @@ If debug mode is turned off, the dependency injection container configuration is
 
     parameters:
         container.cache: false
+
+Web App Container
+-----------------
+
+As an alternative to Symfony bundles, `Symlex\Bootstrap\WebApps` is capable of running multiple apps based on `Symlex\Bootstrap\App` on the same Symlex installation:
+
+    $app = new WebApps('web', __DIR__ . '/../app', false);
+    $app->run();
+
+It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex apps according to the configuration in `app/config/web.guests.yml` (path, debug, prefix and domain are optional; bootstrap and config are required):
+
+    example:
+        prefix: /example
+        domain: www.example.com
+        bootstrap: \Symlex\Bootstrap\WebApp
+        config: web.yml
+        debug: true
+        path: vendors/lastzero/example/app
+    
+    default:
+        prefix: /web
+        bootstrap: \Symlex\Bootstrap\WebApp
+        config: web.yml
+        path: app
+
+*Note: Assets in web/ like images, CSS or JavaScript in are not automatically shared in a way Assetic does this with Symfony bundles. If your apps not only provide Web services, you might have to create symbolic links or modify your HTML templates.*
 
 Routers
 -------
