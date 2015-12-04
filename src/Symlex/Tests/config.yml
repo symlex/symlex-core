@@ -37,18 +37,18 @@ services:
 
     twig:
         class: Twig_Environment
-        arguments: [ @twig.loader, %twig.options% ]
+        arguments: [ "@twig.loader", %twig.options% ]
         calls:
             - [ addGlobal, [ 'debug', %debug% ] ]
 
     router.rest:
         class: Symlex\Router\RestRouter
-        arguments: [ @app, @service_container ]
+        arguments: [ "@app", "@service_container" ]
 
     router.twig:
         class: Symlex\Router\TwigRouter
-        arguments: [ @app, @service_container, @twig ]
+        arguments: [ "@app", "@service_container", "@twig" ]
 
     router.error:
         class: Symlex\Router\ErrorRouter
-        arguments: [ @app, @twig, %exception.codes%, %exception.messages%, %debug% ]
+        arguments: [ "@app", "@twig", %exception.codes%, %exception.messages%, %debug% ]

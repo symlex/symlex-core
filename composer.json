@@ -8,21 +8,20 @@
     "authors": [
         {
             "name": "Michael Mayer",
-            "email": "michael@liquidbytes.net",
-            "homepage": "http://www.liquidbytes.net/",
+            "email": "michael@lastzero.net",
+            "homepage": "https://lastzero.net/",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "silex/silex": "~1.3",
-        "symfony/symfony": "~2.8",
-        "lastzero/test-tools": "*",
+        "php": ">=5.5.9",
+        "silex/silex": "~1.2",
+        "symfony/symfony": ">=2.8",
         "twig/twig": "~1.12"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable",
-        "sstalle/php7cc": "*"
+        "lastzero/test-tools": "~2.0",
+        "phpunit/phpunit": "@stable"
     },
     "autoload": {
         "psr-0": { "Symlex": "src/" }
