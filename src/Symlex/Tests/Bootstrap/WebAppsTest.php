@@ -4,23 +4,23 @@ namespace Symlex\Tests\Bootstrap;
 
 use Symfony\Component\HttpFoundation\Request;
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Bootstrap\WebAppHypervisor;
+use Symlex\Bootstrap\WebApps;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-class WebAppContainerTest extends UnitTestCase
+class WebAppsTest extends UnitTestCase
 {
     /**
-     * @var WebAppHypervisor
+     * @var WebApps
      */
     protected $app;
 
     public function testRunWeb () {
         $request = Request::create('http://www.bar.com/web/api/example/99');
 
-        $this->app = new WebAppHypervisor('web', __DIR__ . '/ContainerApp', true);
+        $this->app = new WebApps('web', __DIR__ . '/Apps', true);
 
         $this->app->setRequest($request);
 
@@ -34,7 +34,7 @@ class WebAppContainerTest extends UnitTestCase
     public function testRunExampleCom () {
         $request = Request::create('http://www.example.com/foo/api/example/88');
 
-        $this->app = new WebAppHypervisor('web', __DIR__ . '/ContainerApp', true);
+        $this->app = new WebApps('web', __DIR__ . '/Apps', true);
 
         $this->app->setRequest($request);
 
@@ -48,7 +48,7 @@ class WebAppContainerTest extends UnitTestCase
     public function testRunNotFound () {
         $request = Request::create('http://www.example2.com/foo/api/example/88');
 
-        $this->app = new WebAppHypervisor('web', __DIR__ . '/ContainerApp', true);
+        $this->app = new WebApps('web', __DIR__ . '/Apps', true);
 
         $this->app->setRequest($request);
 

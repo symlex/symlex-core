@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Parser as YamlParser;
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-abstract class AppHypervisor extends App
+abstract class Apps extends App
 {
     /**
      * @var array
@@ -28,7 +28,7 @@ abstract class AppHypervisor extends App
      */
     protected $yamlParser;
 
-    public function __construct($environment = 'hypervisor', $appPath = '', $debug = false)
+    public function __construct($environment = 'apps', $appPath = '', $debug = false)
     {
         $this->yamlParser = new YamlParser();
 
@@ -43,7 +43,9 @@ abstract class AppHypervisor extends App
 
     public function loadGuests()
     {
-        $guests = $this->yamlParser->parse(file_get_contents($this->getConfigPath() . '/' . $this->getEnvironment() . '-apps.yml'));
+        $guestConfigFilename = $this->getConfigPath() . '/' . $this->getEnvironment() . '.guests.yml';
+
+        $guests = $this->yamlParser->parse(file_get_contents($guestConfigFilename));
 
         foreach ($guests as $label => $guestAppConfig) {
             $this->addGuestAppConfig($label, $guestAppConfig);

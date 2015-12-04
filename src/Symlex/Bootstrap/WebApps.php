@@ -9,7 +9,7 @@ use Symlex\Bootstrap\Exception\Exception;
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-class WebAppHypervisor extends AppHypervisor
+class WebApps extends Apps
 {
     protected $request;
 
