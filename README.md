@@ -124,10 +124,8 @@ It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex 
         path: vendors/lastzero/example/app
     
     default:
-        prefix: /web
         bootstrap: \Symlex\Bootstrap\WebApp
-        config: web.yml
-        path: app
+        config: web.default.yml
 
 *Note: Assets in web/ like images, CSS or JavaScript in are not automatically shared in a way Assetic does this with Symfony bundles. If your apps not only provide Web services, you might have to create symbolic links or modify your HTML templates.*
 
