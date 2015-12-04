@@ -41,12 +41,12 @@ services:
 
     router.rest:
         class: Symlex\Router\RestRouter
-        arguments: [ @app, @service_container ]
+        arguments: [ "@app", "@service_container" ]
 
     router.twig:
         class: Symlex\Router\TwigRouter
-        arguments: [ @app, @service_container, @twig ]
+        arguments: [ "@app", "@service_container", "@twig" ]
 
     router.error:
         class: Symlex\Router\ErrorRouter
-        arguments: [ @app, @twig, %exception.codes%, %exception.messages%, %app.debug% ]
+        arguments: [ "@app", "@twig", %exception.codes%, %exception.messages%, %app.debug% ]
