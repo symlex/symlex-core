@@ -148,7 +148,7 @@ abstract class AppHypervisor extends App
         if ($guestApp instanceof App) {
             $guestApp->setContainer($this->getContainer());
         } else {
-            throw new Exception('Guest app must be an instance of Symlex\Bootstrap\App');
+            throw new Exception('Guest app must be an instance of \Symlex\Bootstrap\App');
         }
 
         $this->configureGuestApp($guestApp);
