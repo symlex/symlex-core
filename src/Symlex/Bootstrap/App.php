@@ -109,6 +109,22 @@ class App
     }
 
     /**
+     * "local" is the default sub environment for overwriting the existing config
+     *
+     * @return string
+     */
+    public function getSubEnvironment()
+    {
+        $result = 'local';
+
+        if($this->container->hasParameter('app.sub_environment')) {
+            $result = (string) $this->container->getParameter('app.sub_environment');
+        }
+
+        return $result;
+    }
+
+    /**
      * @return ContainerBuilder
      * @throws ContainerNotFoundException
      */
@@ -261,8 +277,10 @@ class App
             $loader->load($environment . '.yml');
         }
 
-        if (file_exists($configPath . '/' . $environment . '.local.yml')) {
-            $loader->load($environment . '.local.yml');
+        $subEnvironment = $this->getSubEnvironment();
+
+        if (file_exists($configPath . '/' . $environment . '.' . $subEnvironment . '.yml')) {
+            $loader->load($environment . '.' . $subEnvironment . '.yml');
         }
     }
 
