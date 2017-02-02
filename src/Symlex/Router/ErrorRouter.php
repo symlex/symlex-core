@@ -53,7 +53,7 @@ class ErrorRouter
         $exceptionCodes = $this->exceptionCodes;
 
         $app->error(function (\Exception $e, $code) use ($app, $exceptionCodes) {
-            $request = $app['request'];
+            $request = $app['request_stack']->getCurrentRequest();
             $exceptionClass = get_class($e);
 
             if (isset($exceptionCodes[$exceptionClass])) {
