@@ -2,14 +2,14 @@
 
 namespace Symlex\Tests\Bootstrap;
 
-use PHPUnit_Framework_TestCase as UnitTestCase;
+use PHPUnit\Framework\TestCase;
 use Symlex\Tests\Bootstrap\App\App;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-class AppCacheTest extends UnitTestCase
+class AppCacheTest extends TestCase
 {
     public function testCaching()
     {

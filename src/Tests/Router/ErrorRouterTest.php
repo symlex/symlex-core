@@ -3,25 +3,26 @@
 namespace Symlex\Tests\Router;
 
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Router\TwigRouter;
+use Symlex\Router\ErrorRouter;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-class TwigRouterTest extends UnitTestCase
+class ErrorRouterTest extends UnitTestCase
 {
     /**
-     * @var TwigRouter
+     * @var ErrorRouter
      */
     protected $router;
 
     public function setUp()
     {
-        $this->router = $this->get('router.twig');
+        $this->router = $this->get('router.error');
     }
 
     public function testRoute () {
         $this->router->route();
+        $this->assertTrue(true);
     }
 }

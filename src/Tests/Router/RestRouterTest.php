@@ -3,25 +3,26 @@
 namespace Symlex\Tests\Router;
 
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Router\ErrorRouter;
+use Symlex\Router\RestRouter;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-class ErrorRouterTest extends UnitTestCase
+class RestRouterTest extends UnitTestCase
 {
     /**
-     * @var ErrorRouter
+     * @var RestRouter
      */
     protected $router;
 
     public function setUp()
     {
-        $this->router = $this->get('router.error');
+        $this->router = $this->get('router.rest');
     }
 
     public function testRoute () {
         $this->router->route();
+        $this->assertTrue(true);
     }
 }
