@@ -1,13 +1,14 @@
 {
     "name": "lastzero/symlex-core",
     "type": "library",
-    "description": "Symlex core components (Silex with Symfony DI Container)",
+    "description": "Silex with Symfony DI Container: Microkernel and REST/Twig router components",
     "keywords": [
         "silex",
         "symfony",
         "dependency injection",
         "performance",
-        "micro-framework"
+        "micro-framework",
+        "rest"
     ],
     "license": "MIT",
     "homepage": "https://github.com/lastzero/symlex-core",
