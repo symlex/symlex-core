@@ -12,7 +12,7 @@ Bootstrap
 ---------
 The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 300 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
 
-```
+```php
 <?php
 namespace Symlex\Bootstrap;
 
@@ -66,7 +66,7 @@ This provides a uniform approach for bootstrapping Web (`Silex\Application`) and
 
 The kernel base class can be extended to customize it for a specific purpose:
 
-```
+```php
 <?php
 namespace Symlex\Bootstrap;
 
@@ -87,7 +87,7 @@ class ConsoleApp extends App
 
 Creating a kernel instance and calling run() is enough to start an application:
 
-```
+```php
 #!/usr/bin/env php
 <?php
 
@@ -115,17 +115,19 @@ As an alternative to Symfony bundles, `Symlex\Bootstrap\WebApps` is capable of r
 
 It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex apps according to the configuration in `app/config/web.guests.yml` (path, debug, prefix and domain are optional; bootstrap and config are required):
 
-    example:
-        prefix: /example
-        domain: www.example.com
-        bootstrap: \Symlex\Bootstrap\WebApp
-        config: web.yml
-        debug: true
-        path: vendors/lastzero/example/app
-    
-    default:
-        bootstrap: \Symlex\Bootstrap\WebApp
-        config: web.default.yml
+```yaml
+example:
+    prefix: /example
+    domain: www.example.com
+    bootstrap: \Symlex\Bootstrap\WebApp
+    config: web.yml
+    debug: true
+    path: vendors/lastzero/example/app
+
+default:
+    bootstrap: \Symlex\Bootstrap\WebApp
+    config: web.default.yml
+```
 
 *Note: Assets in web/ like images, CSS or JavaScript in are not automatically shared in a way Assetic does this with Symfony bundles. If your apps not only provide Web services, you might have to create symbolic links or modify your HTML templates.*
 
@@ -140,7 +142,7 @@ There are three router classes included in this library (they configure Silex to
 It's easy to create your own custom routing/rendering based on the existing examples.
 
 The application's HTTP kernel class initializes the routers that were configured via dependency injection:
-```
+```php
 <?php
 
 namespace Symlex\Bootstrap;
@@ -188,7 +190,7 @@ Interceptors
 ------------
 HTTP interceptors can be used to perform HTTP authentication or other actions (e.g. blocking certain IP ranges) **before** routing a request:
 
-```
+```php
 <?php
 
 use Symlex\Bootstrap\App;
