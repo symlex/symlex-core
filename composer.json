@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "silex/silex": "~1.2",
+        "silex/silex": "~2.0",
         "symfony/symfony": "^2.8|^3.0",
         "twig/twig": "~1.12"
     },
