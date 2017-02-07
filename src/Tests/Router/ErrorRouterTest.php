@@ -21,7 +21,8 @@ class ErrorRouterTest extends UnitTestCase
         $this->router = $this->get('router.error');
     }
 
-    public function testRoute () {
+    public function testRoute()
+    {
         $this->router->route();
         $this->assertTrue(true);
     }

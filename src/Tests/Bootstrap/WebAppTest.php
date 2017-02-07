@@ -67,7 +67,8 @@ class WebAppTest extends UnitTestCase
         $this->assertInstanceOf('\Symfony\Component\DependencyInjection\Container', $result);
     }
 
-    public function testRun () {
+    public function testRun()
+    {
         ob_start();
         $this->app->run();
         $result = ob_get_clean();

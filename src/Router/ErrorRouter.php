@@ -31,16 +31,17 @@ class ErrorRouter
         $this->debug = $debug;
     }
 
-    protected function isJsonRequest (Request $request) {
+    protected function isJsonRequest(Request $request)
+    {
         $result = false;
 
         $headers = $request->headers;
 
-        if(strpos($headers->get('Accept'), 'application/json') !== false) {
+        if (strpos($headers->get('Accept'), 'application/json') !== false) {
             $result = true;
         }
 
-        if(strpos($headers->get('Content-Type'), 'application/json') !== false) {
+        if (strpos($headers->get('Content-Type'), 'application/json') !== false) {
             $result = true;
         }
 
@@ -70,7 +71,8 @@ class ErrorRouter
         });
     }
 
-    protected function getErrorDetails (\Exception $exception, $code) {
+    protected function getErrorDetails(\Exception $exception, $code)
+    {
         if (isset($this->exceptionMessages[$code])) {
             $error = $this->exceptionMessages[$code];
         } else {

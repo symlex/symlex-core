@@ -28,13 +28,13 @@ class HttpInterceptor
         }
 
         if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
-            $this->sendAuthenticateHeader ($realm);
+            $this->sendAuthenticateHeader($realm);
 
             exit();
         }
 
         if (!($data = $this->httpDigestParse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[$data['username']])) {
-            $this->sendAuthenticateHeader ($realm);
+            $this->sendAuthenticateHeader($realm);
 
             exit();
         }
@@ -45,7 +45,7 @@ class HttpInterceptor
         $valid_response = md5($A1 . ':' . $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $A2);
 
         if ($data['response'] != $valid_response) {
-            $this->sendAuthenticateHeader ($realm);
+            $this->sendAuthenticateHeader($realm);
 
             exit();
         }
@@ -57,8 +57,9 @@ class HttpInterceptor
      * @param string $realm
      * @param array $users username => password
      */
-    public function sslDigestAuth ($realm, array $users) {
-        if($this->isSSLRequest()) {
+    public function sslDigestAuth($realm, array $users)
+    {
+        if ($this->isSSLRequest()) {
             $this->digestAuth($realm, $users);
         }
     }
@@ -122,7 +123,8 @@ class HttpInterceptor
      *
      * @param $realm
      */
-    protected function sendAuthenticateHeader ($realm) {
+    protected function sendAuthenticateHeader($realm)
+    {
         header('HTTP/1.1 401 Unauthorized');
         header('WWW-Authenticate: Digest realm="' . $realm .
             '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');

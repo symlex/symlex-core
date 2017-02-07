@@ -38,7 +38,7 @@ class TwigRouter extends Router
             }
 
             // Remove trailing .html
-            if(stripos($action, '.html') === (strlen($action) - 5)) {
+            if (stripos($action, '.html') === (strlen($action) - 5)) {
                 $action = substr($action, 0, -5);
             }
 
@@ -71,7 +71,7 @@ class TwigRouter extends Router
             }
 
             if (!method_exists($controllerInstance, $actionName)) {
-                if(method_exists($controllerInstance, $subResources . 'Action')) {
+                if (method_exists($controllerInstance, $subResources . 'Action')) {
                     throw new MethodNotAllowedException ($request->getMethod() . ' not supported');
                 } else {
                     throw new NotFoundException ($actionName . ' not found');

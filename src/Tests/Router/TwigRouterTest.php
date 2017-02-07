@@ -21,7 +21,8 @@ class TwigRouterTest extends UnitTestCase
         $this->router = $this->get('router.twig');
     }
 
-    public function testRoute () {
+    public function testRoute()
+    {
         $this->router->route();
         $this->assertTrue(true);
     }

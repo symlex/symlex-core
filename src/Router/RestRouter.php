@@ -65,9 +65,9 @@ class RestRouter extends Router
 
             $result = call_user_func_array(array($controllerInstance, $actionName), $params);
 
-            if(!$result) {
+            if (!$result) {
                 $httpCode = 204;
-            } elseif($method == 'POST') {
+            } elseif ($method == 'POST') {
                 $httpCode = 201;
             } else {
                 $httpCode = 200;

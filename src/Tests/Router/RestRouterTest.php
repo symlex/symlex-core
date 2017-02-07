@@ -21,7 +21,8 @@ class RestRouterTest extends UnitTestCase
         $this->router = $this->get('router.rest');
     }
 
-    public function testRoute () {
+    public function testRoute()
+    {
         $this->router->route();
         $this->assertTrue(true);
     }

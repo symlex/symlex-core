@@ -12,11 +12,13 @@ use Symlex\Router\Exception\NotFoundException;
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-abstract class Router {
+abstract class Router
+{
     protected $app;
     protected $container;
 
-    public function __construct(Application $app, Container $container) {
+    public function __construct(Application $app, Container $container)
+    {
         $this->app = $app;
         $this->container = $container;
     }

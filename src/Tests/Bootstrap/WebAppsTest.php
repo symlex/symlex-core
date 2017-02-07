@@ -17,7 +17,8 @@ class WebAppsTest extends UnitTestCase
      */
     protected $app;
 
-    public function testRunWeb () {
+    public function testRunWeb()
+    {
         $request = Request::create('http://www.bar.com/web/api/example/99');
 
         $this->app = new WebApps('web', __DIR__ . '/Apps', true);
@@ -31,7 +32,8 @@ class WebAppsTest extends UnitTestCase
         $this->assertContains('{"id":"99","foo":"baz"}', $result);
     }
 
-    public function testRunExampleCom () {
+    public function testRunExampleCom()
+    {
         $request = Request::create('http://www.example.com/foo/api/example/88');
 
         $this->app = new WebApps('web', __DIR__ . '/Apps', true);
@@ -45,7 +47,8 @@ class WebAppsTest extends UnitTestCase
         $this->assertContains('{"id":"88","foo":"baz"}', $result);
     }
 
-    public function testRunNotFound () {
+    public function testRunNotFound()
+    {
         $request = Request::create('http://www.example2.com/foo/api/example/88');
 
         $this->app = new WebApps('web', __DIR__ . '/Apps', true);
