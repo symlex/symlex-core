@@ -47,9 +47,9 @@ class WebApps extends Apps
             $appPrefix = isset($guestAppConfig['prefix']) ? $guestAppConfig['prefix'] : '';
             $appDomain = isset($guestAppConfig['domain']) ? $guestAppConfig['domain'] : '*';
 
-            if(strpos($this->getRequest()->getRequestUri(), $appPrefix . '/') === 0) {
+            if (strpos($this->getRequest()->getRequestUri(), $appPrefix . '/') === 0) {
                 if ($appDomain === '*' || $appDomain === $domain) {
-                    if(!$result || (substr_count($appPrefix, '/') > substr_count($result['prefix'], '/'))) {
+                    if (!$result || (substr_count($appPrefix, '/') > substr_count($result['prefix'], '/'))) {
                         $result = $guestAppConfig;
                     }
                 }
@@ -72,16 +72,17 @@ class WebApps extends Apps
         }
     }
 
-    protected function getGuestAppInstance () {
+    protected function getGuestAppInstance()
+    {
         $config = $this->getGuestAppConfig();
 
-        if(!isset($config['bootstrap'])) {
+        if (!isset($config['bootstrap'])) {
             throw new Exception('"bootstrap" parameter must be set to a valid class name');
         }
 
         $guestAppClass = $config['bootstrap'];
         $guestAppPath = $this->getGuestAppPath();
-        $guestAppDebug = isset($config['debug']) ? (bool) $config['debug'] : $this->debug;
+        $guestAppDebug = isset($config['debug']) ? (bool)$config['debug'] : $this->debug;
 
         $result = new $guestAppClass ($guestAppPath, $guestAppDebug);
 

@@ -68,7 +68,7 @@ class App
     {
         if ($this->hasBooted()) return; // Nothing to do
 
-        if($this->debug) {
+        if ($this->debug) {
             $this->setContainer(new ContainerBuilder(new ParameterBag($this->getAppParameters())));
             $this->loadContainerConfiguration();
         } else {
@@ -90,9 +90,12 @@ class App
         }
     }
 
-    public function getContainerCacheFilename () {
-        $environment =  $this->getEnvironment();
-        $filename = $this->getCachePath() . '/' . $environment . '_container.php';
+    public function getContainerCacheFilename()
+    {
+        $environment = $this->getEnvironment();
+        $appPath = $this->getAppPath();
+
+        $filename = $this->getCachePath() . '/container_' . md5($environment . $appPath) . '.php';
 
         return $filename;
     }
@@ -101,8 +104,8 @@ class App
     {
         $result = true; // container is cacheable by default
 
-        if($this->container->hasParameter('container.cache')) {
-            $result = (bool) $this->container->getParameter('container.cache');
+        if ($this->container->hasParameter('container.cache')) {
+            $result = (bool)$this->container->getParameter('container.cache');
         }
 
         return $result;
@@ -117,8 +120,8 @@ class App
     {
         $result = 'local';
 
-        if($this->container->hasParameter('app.sub_environment')) {
-            $result = (string) $this->container->getParameter('app.sub_environment');
+        if ($this->container->hasParameter('app.sub_environment')) {
+            $result = (string)$this->container->getParameter('app.sub_environment');
         }
 
         return $result;
@@ -128,8 +131,9 @@ class App
      * @return ContainerBuilder
      * @throws ContainerNotFoundException
      */
-    public function getContainer () {
-        if(!$this->container) {
+    public function getContainer()
+    {
+        if (!$this->container) {
             $this->boot();
         }
 
@@ -269,7 +273,7 @@ class App
     protected function loadContainerConfiguration()
     {
         $configPath = $this->getConfigPath();
-        $environment=  $this->getEnvironment();
+        $environment = $this->getEnvironment();
 
         $loader = new YamlFileLoader($this->container, new FileLocator($configPath));
 
@@ -284,13 +288,14 @@ class App
         }
     }
 
-    protected function appIsUninitialized () {
+    protected function appIsUninitialized()
+    {
         return !$this->appInitialized;
     }
 
     protected function getApplication()
     {
-        if($this->appIsUninitialized()) {
+        if ($this->appIsUninitialized()) {
             $this->setUp();
         }
 

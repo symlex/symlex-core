@@ -38,7 +38,9 @@ abstract class Apps extends App
     }
 
     abstract protected function findGuestAppConfig();
+
     abstract protected function getGuestAppInstance();
+
     abstract protected function configureGuestApp(App $app);
 
     public function loadGuests()
