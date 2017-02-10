@@ -6,7 +6,8 @@ Symlex: Silex + Symfony DI Container
 [![Total Downloads](https://poser.pugx.org/lastzero/symlex-core/downloads.svg)](https://packagist.org/packages/lastzero/symlex-core)
 [![License](https://poser.pugx.org/lastzero/symlex-core/license.svg)](https://packagist.org/packages/lastzero/symlex-core)
 
-*Note: This repository only contains the bootstrap and routers as reusable components. For more information and a complete application based on symlex-core please go to https://github.com/lastzero/symlex*
+*Note: This repository contains the bootstrap and routers as reusable components. For more information and a 
+complete framework based on symlex-core please go to https://github.com/lastzero/symlex*
 
 Bootstrap
 ---------
@@ -110,8 +111,10 @@ Web App Container
 
 As an alternative to Symfony bundles, `Symlex\Bootstrap\WebApps` is capable of running multiple apps based on `Symlex\Bootstrap\App` on the same Symlex installation:
 
-    $app = new WebApps('web', __DIR__ . '/../app', false);
-    $app->run();
+```php
+$app = new WebApps('web', __DIR__ . '/../app', false);
+$app->run();
+```
 
 It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex apps according to the configuration in `app/config/web.guests.yml` (path, debug, prefix and domain are optional; bootstrap and config are required):
 
