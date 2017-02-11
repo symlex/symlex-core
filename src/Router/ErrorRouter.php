@@ -91,7 +91,7 @@ class ErrorRouter
             $line = $exception->getLine();
             $trace = $exception->getTrace();
         } else {
-            $message = $error;
+            $message = '';
             $class = 'Exception';
             $file = '';
             $line = '';
