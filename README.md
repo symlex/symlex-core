@@ -1,4 +1,4 @@
-Symlex: Silex + Symfony DI Container
+Symlex: Silex + Symfony DI container
 ====================================
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
@@ -11,7 +11,7 @@ complete framework based on symlex-core please go to https://github.com/lastzero
 
 Bootstrap
 ---------
-The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 300 lines of code, initializes the Symfony dependency injection container and then starts the app by calling `run()`:
+The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 300 lines of code, initializes the Symfony service container and then starts the app by calling `run()`:
 
 ```php
 <?php
@@ -101,7 +101,7 @@ $app->run();
 
 **Caching**
 
-If debug mode is turned off, the dependency injection container configuration is cached in `var/cache/` by the kernel. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
+If debug mode is turned off, the service container configuration is cached in `var/cache/` by the kernel. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
 
     parameters:
         container.cache: false
@@ -144,7 +144,7 @@ There are three router classes included in this library (they configure Silex to
 
 It's easy to create your own custom routing/rendering based on the existing examples.
 
-The application's HTTP kernel class initializes the routers that were configured via dependency injection:
+The application's HTTP kernel class initializes the routers that were configured in the service container:
 ```php
 <?php
 
