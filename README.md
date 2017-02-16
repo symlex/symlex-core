@@ -1,5 +1,5 @@
-Symlex: Silex + Symfony DI container
-====================================
+Symlex Core: A micro-kernel based on the Symfony service container plus router components for Silex 2
+=====================================================================================================
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/lastzero/symlex-core/v/stable.svg)](https://packagist.org/packages/lastzero/symlex-core)
