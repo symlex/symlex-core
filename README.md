@@ -1,5 +1,5 @@
-Symlex Core: A micro-kernel and router components for Silex 2
-=============================================================
+Symlex Core: A micro-kernel and router components for Silex
+===========================================================
 
 [![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/lastzero/symlex-core/v/stable.svg)](https://packagist.org/packages/lastzero/symlex-core)
