@@ -11,65 +11,42 @@ complete framework based on symlex-core please go to https://github.com/lastzero
 
 Bootstrap
 ---------
-The light-weight Symlex kernel (`Symlex\Bootstrap\App`) bootstraps **Silex** and **Symfony Console** applications. It's just about 300 lines of code, initializes the Symfony service container and then starts the app by calling `run()`:
+The light-weight Symlex kernel bootstraps **Silex** and **Symfony Console** applications. It's based on the 
+[di-microkernel](https://github.com/lastzero/di-microkernel) library. 
+The kernel itself is just about 400 lines of code to set a bunch of default parameters for your application and create 
+a service container instance with that.
 
-```php
-<?php
-namespace Symlex\Bootstrap;
+YAML files located in `config/` configure the application and all of it's dependencies as a service. The filename matches 
+the application's environment name (e.g. `config/console.yml`). The configuration can additionally be modified 
+for sub environments such as local or production by providing a matching config file like `config/console.local.yml`
+(see `app.sub_environment` parameter). These files are in the same [well documented](https://symfony.com/doc/current/components/dependency_injection.html) format you might know from Symfony:
 
-class App
-{
-    protected $environment;
-    protected $debug;
-    protected $appPath;
+```yaml
+parameters:
+    app.name: 'My App'
+    app.version: '1.0'
 
-    public function __construct($environment = 'app', $appPath = '', $debug = false)
-    {
-        $this->environment = $environment;
-        $this->debug = $debug;
-        $this->appPath = $appPath;
-
-        $this->init();
-    }
-    
-    ...
-    
-    public function getApplication()
-    {
-        if($this->appIsUninitialized()) {
-            $this->setUp();
-        }
-
-        $result = $this->getContainer()->get('app');
-
-        $this->appInitialized = true;
-
-        return $result;
-    }
-    
-    public function run()
-    {
-        $arguments = func_get_args();
-        $application = $this->getApplication();
-
-        return call_user_func_array(array($application, 'run'), $arguments);
-    }
-}
+services:
+    doctrine.migrations.migrate:
+        class: Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand
+        
+    app:
+        class: Symfony\Component\Console\Application
+        arguments: [%app.name%, %app.version%]
+        calls:
+            - [ add, [ "@doctrine.migrations.migrate" ] ]
 ```
 
-YAML files located in `$appPath/config/` configure the entire system via dependecy injection. The filename matches the application's environment name (e.g. `console.yml`). These files are in the same format you know from Symfony 2. In addition to the regular services, they also contain the actual application as a service ("app"):
+This provides a uniform approach for bootstrapping Web applications like `Silex\Application` or command-line 
+applications like `Symfony\Component\Console\Application` using the same kernel. The result is much cleaner and 
+leaner than the usual bootstrap and configuration madness you know from many frameworks.
 
-    services:
-        app:
-            class: Silex\Application
-
-This provides a uniform approach for bootstrapping Web (`Silex\Application`) and command-line (`Symfony\Component\Console\Application`) applications with the same kernel.
-
-The kernel base class can be extended to customize it for a specific purpose:
+The kernel base class can be extended to customize it for a specific purpose such as long running console applications:
 
 ```php
 <?php
-namespace Symlex\Bootstrap;
+
+use Symlex\Bootstrap\App;
 
 class ConsoleApp extends App
 {
@@ -86,25 +63,49 @@ class ConsoleApp extends App
 }
 ```
 
-Creating a kernel instance and calling run() is enough to start an application:
+Creating a kernel instance and calling `run()` is enough to start your application:
 
 ```php
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
-use Symlex\Bootstrap\ConsoleApp;
-$app = new ConsoleApp (__DIR__);
+$app = new ConsoleApp ('console', __DIR__, false);
+
 $app->run();
 ```
 
-**Caching**
+Default parameters
+------------------
 
-If debug mode is turned off, the service container configuration is cached in `var/cache/` by the kernel. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters (usually in `app/config/parameters.yml`): 
+The kernel sets a number of default parameters that can be used for configuring services. The default values can be changed via setter methods of the kernel or overwritten by the container config files.
 
-    parameters:
-        container.cache: false
+Parameter           | Getter method         | Setter method         | Default value            
+--------------------|-----------------------|-----------------------|------------------
+app.name            | getName()             | setName()             | 'Kernel'
+app.version         | getVersion()          | setVersion()          | '1.0'
+app.environment     | getEnvironment()      | setEnvironment()      | 'app'
+app.sub_environment | getSubEnvironment()   | setSubEnvironment()   | 'local'
+app.debug           | isDebug()             | setDebug()            | false
+app.charset         | getCharset()          | setCharset()          | 'UTF-8'
+app.path            | getAppPath()          | setAppPath()          | './'
+app.config_path     | getConfigPath()       | setConfigPath()       | './config'
+app.base_path       | getBasePath()         | setBasePath()         | '../'
+app.storage_path    | getStoragePath()      | setStoragePath()      | '../storage'
+app.log_path        | getLogPath()          | setLogPath()          | '../storage/log'
+app.cache_path      | getCachePath()        | setCachePath()        | '../storage/cache'
+app.src_path        | getSrcPath()          | setSrcPath()          | '../src'
+
+Caching
+-------
+
+If debug mode is turned off, the service container configuration is cached by the kernel in the directory set as cache path. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters: 
+
+```yaml
+parameters:
+    container.cache: false
+```
 
 Web App Container
 -----------------
