@@ -18,7 +18,7 @@ parameters:
         410: 'Gone'
         500: 'Looks like something went wrong!'
 
-    twig.path: '%base.path%/Tests/_files/'
+    twig.path: '%base.path%/Tests/_files/twig'
     twig.options:
         charset: 'UTF-8'
         debug: true
@@ -52,3 +52,9 @@ services:
     router.error:
         class: Symlex\Router\ErrorRouter
         arguments: [ "@app", "@twig", %exception.codes%, %exception.messages%, %debug% ]
+
+    controller.rest.fake:
+        class: Symlex\Tests\Router\FakeRestController
+
+    controller.web.fake:
+        class: Symlex\Tests\Router\FakeWebController
