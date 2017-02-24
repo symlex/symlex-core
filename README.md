@@ -179,10 +179,14 @@ The REST and Twig routers accept optional URL (e.g. `/api`) and service name pre
 Routing examples for the default HTTP kernel (`Symlex\Bootstrap\WebApp`):
 - `GET /` will be routed to `controller.web.index` service's `indexAction(Request $request)`
 - `POST /session/login` will be routed to `controller.web.session` service's `postLoginAction(Request $request)`
-- `GET /api/user` will be routed to `controller.rest.user` service's `cgetAction(Request $request)`
-- `GET /api/user/123` will be routed to `controller.rest.user` service's `getAction($id, Request $request)`
-- `POST /api/user` will be routed to `controller.rest.user` service's `postAction(Request $request)`
-- `PUT /api/user/123/item/5` will be routed to `controller.rest.user` service's `putItemAction($id, $itemId, Request $request)`
+- `GET /api/users` will be routed to `controller.rest.users` service's `cgetAction(Request $request)`
+- `POST /api/users` will be routed to `controller.rest.users` service's `postAction(Request $request)`
+- `OPTIONS /api/users` will be routed to `controller.rest.users` service's `coptionsAction(Request $request)`
+- `GET /api/users/123` will be routed to `controller.rest.users` service's `getAction($id, Request $request)`
+- `OPTIONS /api/users/123` will be routed to `controller.rest.users` service's `optionsAction($id, Request $request)`
+- `GET /api/users/123/comments` will be routed to `controller.rest.users` service's `cgetCommentsAction($id, Request $request)`
+- `GET /api/users/123/comments/5` will be routed to `controller.rest.users` service's `getCommentsAction($id, $commendId, Request $request)`
+- `PUT /api/users/123/comments/5` will be routed to `controller.rest.users` service's `putCommentsAction($id, $commendId, Request $request)`
 
 The routers pass on the request instance to each matched controller action as last argument. It contains request parameters and headers: http://symfony.com/doc/current/book/http_fundamentals.html#requests-and-responses-in-symfony
 
