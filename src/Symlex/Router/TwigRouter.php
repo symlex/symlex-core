@@ -99,11 +99,12 @@ class TwigRouter extends Router
             return $response;
         };
 
-        $indexRequestHandler = function (Request $request) use ($app, $container, $servicePrefix, $servicePostfix, $webRequestHandler) {
-            return $webRequestHandler('index', $request, 'index');
+        $indexRequestHandler = function (Request $request, $action='index') use ($app, $container, $servicePrefix, $servicePostfix, $webRequestHandler) {
+            return $webRequestHandler('index', $request, $action);
         };
 
         $app->get($routePrefix . '/', $indexRequestHandler);
+        $app->get($routePrefix . '/{action}', $indexRequestHandler)->assert('action', '.+');
         $app->match($routePrefix . '/{controller}', $webRequestHandler);
         $app->match($routePrefix . '/{controller}/{action}', $webRequestHandler)->assert('action', '.+');
     }
