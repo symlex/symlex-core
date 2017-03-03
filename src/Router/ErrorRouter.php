@@ -31,11 +31,21 @@ class ErrorRouter
         $this->debug = $debug;
     }
 
-    protected function isJsonRequest(Request $request)
+    /**
+     * @return Request
+     */
+    protected function getRequest()
     {
-        $result = false;
+        $result = $this->app['request_stack']->getCurrentRequest();
 
-        $headers = $request->headers;
+        return $result;
+    }
+
+    protected function isJsonRequest()
+    {
+        $headers = $this->getRequest()->headers;
+
+        $result = false;
 
         if (strpos($headers->get('Accept'), 'application/json') !== false) {
             $result = true;
@@ -50,11 +60,9 @@ class ErrorRouter
 
     public function route()
     {
-        $app = $this->app;
         $exceptionCodes = $this->exceptionCodes;
 
-        $app->error(function (\Exception $e, $code) use ($app, $exceptionCodes) {
-            $request = $app['request_stack']->getCurrentRequest();
+        $this->app->error(function (\Exception $e, $code) use ($exceptionCodes) {
             $exceptionClass = get_class($e);
 
             if (isset($exceptionCodes[$exceptionClass])) {
@@ -63,7 +71,7 @@ class ErrorRouter
                 $code = 500;
             }
 
-            if ($this->isJsonRequest($request)) {
+            if ($this->isJsonRequest()) {
                 return $this->jsonError($e, $code);
             } else {
                 return $this->htmlError($e, $code);
