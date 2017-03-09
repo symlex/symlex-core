@@ -71,6 +71,7 @@ class App
         if($this->debug) {
             $this->setContainer(new ContainerBuilder(new ParameterBag($this->getAppParameters())));
             $this->loadContainerConfiguration();
+            $this->container->compile();
         } else {
             $filename = $this->getContainerCacheFilename();
 
