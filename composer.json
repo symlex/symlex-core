@@ -1,5 +1,5 @@
 {
-    "name": "lastzero/symlex-core",
+    "name": "symlex/symlex-core",
     "description": "Silex + Symfony: A micro-kernel and REST/Twig router components for Silex 2",
     "type": "library",
     "keywords": [
