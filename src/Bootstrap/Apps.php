@@ -91,7 +91,7 @@ abstract class Apps extends App
         return $result;
     }
 
-    public function getContainerCacheFilename()
+    public function getContainerCacheFilename(): string
     {
         $environment = $this->getEnvironment();
         $config = $this->getGuestAppConfig();
@@ -101,7 +101,7 @@ abstract class Apps extends App
         return $filename;
     }
 
-    protected function getGuestAppConfigPath()
+    protected function getGuestAppConfigPath(): string
     {
         $config = $this->getGuestAppConfig();
 
@@ -114,7 +114,7 @@ abstract class Apps extends App
         return $result;
     }
 
-    protected function getGuestAppPath()
+    protected function getGuestAppPath(): string
     {
         $config = $this->getGuestAppConfig();
 

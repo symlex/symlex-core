@@ -47,7 +47,7 @@ class WebAppTest extends UnitTestCase
 
     public function testGetAppParameters()
     {
-        $result = $this->app->getAppParameters();
+        $result = $this->app->getContainerParameters();
         $this->assertInternalType('array', $result);
         $this->assertArrayHasKey('app.name', $result);
         $this->assertArrayHasKey('app.version', $result);
