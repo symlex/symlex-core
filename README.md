@@ -1,13 +1,13 @@
 Symlex Core: A micro-kernel and router components for Silex
 ===========================================================
 
-[![Build Status](https://travis-ci.org/lastzero/symlex-core.png?branch=master)](https://travis-ci.org/lastzero/symlex-core)
-[![Latest Stable Version](https://poser.pugx.org/lastzero/symlex-core/v/stable.svg)](https://packagist.org/packages/lastzero/symlex-core)
-[![Total Downloads](https://poser.pugx.org/lastzero/symlex-core/downloads.svg)](https://packagist.org/packages/lastzero/symlex-core)
-[![License](https://poser.pugx.org/lastzero/symlex-core/license.svg)](https://packagist.org/packages/lastzero/symlex-core)
+[![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
+[![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
+[![Total Downloads](https://poser.pugx.org/lastzero/symlex-core/downloads.svg)](https://packagist.org/packages/symlex/symlex-core)
+[![License](https://poser.pugx.org/symlex/symlex-core/license.svg)](https://packagist.org/packages/symlex/symlex-core)
 
 *Note: This repository contains the bootstrap and routers as reusable components. For more information and a 
-complete framework based on symlex-core please go to https://github.com/lastzero/symlex*
+complete framework based on symlex-core please go to https://github.com/symlex/symlex*
 
 Bootstrap
 ---------
@@ -70,7 +70,7 @@ example:
     bootstrap: \Symlex\Bootstrap\WebApp
     config: web.yml
     debug: true
-    path: vendors/lastzero/example/app
+    path: vendors/foo/bar/app
 
 default:
     bootstrap: \Symlex\Bootstrap\WebApp
