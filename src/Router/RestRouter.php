@@ -3,6 +3,7 @@
 namespace Symlex\Router;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symlex\Router\Exception\MethodNotAllowedException;
 use Symlex\Router\Exception\AccessDeniedException;
 
@@ -71,6 +72,11 @@ class RestRouter extends Router
                 $httpCode = 201;
             } else {
                 $httpCode = 200;
+            }
+
+            if (is_object($result) && $result instanceof Response) {
+                // If controller returns Response object, return it directly
+                return $result;
             }
 
             return $app->json($result, $httpCode);
