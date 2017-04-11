@@ -9,10 +9,11 @@ Symlex Core: A micro-kernel and router components for Silex
 *Note: This repository contains the bootstrap and routers as reusable components. For more information and a 
 complete framework based on symlex-core please go to https://github.com/symlex/symlex*
 
-Bootstrap
----------
-The light-weight Symlex kernel bootstraps **Silex** (`Symlex\Bootstrap\WebApp`) and **Symfony Console**
-(`Symlex\Bootstrap\ConsoleApp`) applications. 
+Kernel
+------
+
+The light-weight Symlex kernel bootstraps **Silex** (`Symlex\Kernel\WebApp`) and **Symfony Console**
+(`Symlex\Kernel\ConsoleApp`) applications. 
 It's based on the [di-microkernel](https://github.com/lastzero/di-microkernel) library. The kernel itself is just 
 about 400 lines of code to set a bunch of default parameters for your application and create a service container instance with that.
 
@@ -54,7 +55,7 @@ parameters:
 Web App Container
 -----------------
 
-As an alternative to Symfony bundles, `Symlex\Bootstrap\WebApps` is capable of running multiple apps based on `Symlex\Bootstrap\App` on the same Symlex installation:
+As an alternative to Symfony bundles, `Symlex\Kernel\WebApps` is capable of running multiple apps based on `Symlex\Kernel\App` on the same Symlex installation:
 
 ```php
 $app = new WebApps('web', __DIR__ . '/../app', false);
@@ -67,13 +68,13 @@ It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex 
 example:
     prefix: /example
     domain: www.example.com
-    bootstrap: \Symlex\Bootstrap\WebApp
+    bootstrap: \Symlex\Kernel\WebApp
     config: web.yml
     debug: true
     path: vendors/foo/bar/app
 
 default:
-    bootstrap: \Symlex\Bootstrap\WebApp
+    bootstrap: \Symlex\Kernel\WebApp
     config: web.default.yml
 ```
 
@@ -93,7 +94,7 @@ The application's HTTP kernel class initializes the routers that were configured
 ```php
 <?php
 
-namespace Symlex\Bootstrap;
+namespace Symlex\Kernel;
 
 class WebApp extends App
 {
@@ -120,7 +121,7 @@ class WebApp extends App
 
 The REST and Twig routers accept optional URL (e.g. `/api`) and service name prefixes (e.g. `controller.rest.`).
 
-Routing examples for the default HTTP kernel (`Symlex\Bootstrap\WebApp`):
+Routing examples for the default HTTP kernel (`Symlex\Kernel\WebApp`):
 - `GET /` will be routed to `controller.web.index` service's `indexAction(Request $request)`
 - `POST /session/login` will be routed to `controller.web.session` service's `postLoginAction(Request $request)`
 - `GET /api/users` will be routed to `controller.rest.users` service's `cgetAction(Request $request)`
@@ -145,9 +146,9 @@ HTTP interceptors can be used to perform HTTP authentication or other actions (e
 ```php
 <?php
 
-use Symlex\Bootstrap\App;
+use Symlex\Kernel\App;
 
-class HttpApp extends App
+class WebApp extends App
 {
     public function __construct($appPath, $debug = false)
     {
