@@ -1,9 +1,9 @@
 <?php
 
-namespace Symlex\Tests\Bootstrap;
+namespace Symlex\Tests\Kernel;
 
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Tests\Bootstrap\App\App;
+use Symlex\Tests\Kernel\App\App;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>

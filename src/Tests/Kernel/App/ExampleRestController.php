@@ -1,6 +1,6 @@
 <?php
 
-namespace Symlex\Tests\Bootstrap\App;
+namespace Symlex\Tests\Kernel\App;
 
 use Symfony\Component\HttpFoundation\Request;
 

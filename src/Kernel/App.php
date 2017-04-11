@@ -1,6 +1,6 @@
 <?php
 
-namespace Symlex\Bootstrap;
+namespace Symlex\Kernel;
 
 use DIMicroKernel\Kernel;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Symlex\Bootstrap\Exception;
+namespace Symlex\Kernel\Exception;
 
 class Exception extends \Exception {
 }

@@ -34,10 +34,10 @@ services:
         class: Silex\Application
 
     controller.rest.example:
-        class: Symlex\Tests\Bootstrap\App\ExampleRestController
+        class: Symlex\Tests\Kernel\App\ExampleRestController
 
     controller.web.index:
-        class: Symlex\Tests\Bootstrap\App\ExampleWebController
+        class: Symlex\Tests\Kernel\App\ExampleWebController
 
     router.rest:
         class: Symlex\Router\RestRouter

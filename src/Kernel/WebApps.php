@@ -1,9 +1,9 @@
 <?php
 
-namespace Symlex\Bootstrap;
+namespace Symlex\Kernel;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symlex\Bootstrap\Exception\Exception;
+use Symlex\Kernel\Exception\Exception;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>

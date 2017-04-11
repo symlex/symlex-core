@@ -1,10 +1,10 @@
 <?php
 
-namespace Symlex\Tests\Bootstrap;
+namespace Symlex\Tests\Kernel;
 
 use Symfony\Component\HttpFoundation\Request;
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Bootstrap\WebApps;
+use Symlex\Kernel\WebApps;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Symlex\Bootstrap;
+namespace Symlex\Kernel;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>

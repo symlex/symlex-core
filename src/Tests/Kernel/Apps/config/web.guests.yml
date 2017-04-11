@@ -1,17 +1,17 @@
 web:
     prefix: /web
-    bootstrap: \Symlex\Bootstrap\WebApp
+    bootstrap: \Symlex\Kernel\WebApp
     config: web.yml
     path: App
 
 example.com:
     prefix: /foo
     domain: www.example.com
-    bootstrap: \Symlex\Bootstrap\WebApp
+    bootstrap: \Symlex\Kernel\WebApp
     config: web.yml
     path: App
 
 default:
-    bootstrap: \Symlex\Tests\Bootstrap\App\App
+    bootstrap: \Symlex\Tests\Kernel\App\App
     config: symlex_test.yml
     path: App

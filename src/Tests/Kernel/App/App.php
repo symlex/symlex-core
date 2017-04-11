@@ -1,8 +1,8 @@
 <?php
 
-namespace Symlex\Tests\Bootstrap\App;
+namespace Symlex\Tests\Kernel\App;
 
-use Symlex\Bootstrap\App as Bootstrap;
+use Symlex\Kernel\App as Bootstrap;
 
 /**
  * @author Michael Mayer <michael@lastzero.net>
