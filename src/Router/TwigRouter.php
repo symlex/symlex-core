@@ -15,6 +15,7 @@ use Symlex\Router\Exception\MethodNotAllowedException;
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
+ * @see https://github.com/symlex/symlex-core#routers
  */
 class TwigRouter extends Router
 {
@@ -23,15 +24,16 @@ class TwigRouter extends Router
     public function __construct(Application $app, Container $container, Twig_Environment $twig)
     {
         parent::__construct($app, $container);
+
         $this->twig = $twig;
     }
 
-    public function route($routePrefix = '', $servicePrefix = 'controller.web.', $servicePostfix = '')
+    public function route(string $routePrefix = '', string $servicePrefix = 'controller.web.', string $servicePostfix = '')
     {
         $app = $this->app;
         $container = $this->container;
 
-        $webRequestHandler = function ($controller, Request $request, $action = '') use ($container, $servicePrefix, $servicePostfix) {
+        $webRequestHandler = function (string $controller, Request $request, string $action = '') use ($container, $servicePrefix, $servicePostfix) {
             // indexAction is default
             if (!$action) {
                 $action = 'index';
@@ -86,7 +88,7 @@ class TwigRouter extends Router
 
             $result = call_user_func_array(array($controllerInstance, $actionName), $params);
 
-            $template = $controller . '/' . $subResources . '.twig';
+            $template = $this->getTemplateFilename($controller, $subResources);
 
             $response = $this->getResponse($result, $template);
 
@@ -102,28 +104,35 @@ class TwigRouter extends Router
         $app->match($routePrefix . '/{controller}/{action}', $webRequestHandler)->assert('action', '.+');
     }
 
-    protected function render($template, array $values, $httpCode = 200)
+    protected function render(string $template, array $values, int $httpCode = 200): Response
     {
         $result = $this->twig->render(strtolower($template), $values);
 
         return new Response($result, $httpCode);
     }
 
-    protected function redirect($url, $statusCode = 302)
+    protected function redirect(string $url, int $httpCode = 302): Response
     {
-        $result = new RedirectResponse($url, $statusCode);
+        $result = new RedirectResponse($url, $httpCode);
 
         return $result;
     }
 
-    protected function setTwigVariables($controller, $action, $isXmlHttpRequest)
+    protected function setTwigVariables(string $controller, string $action, bool $isXmlHttpRequest)
     {
         $this->twig->addGlobal('controller', strtolower($controller));
         $this->twig->addGlobal('action', strtolower($action));
         $this->twig->addGlobal('ajax_request', $isXmlHttpRequest);
     }
 
-    protected function getResponse($result, $template)
+    protected function getTemplateFilename(string $controller, string $subResources): string
+    {
+        $result = $controller . '/' . $subResources . '.twig';
+
+        return $result;
+    }
+
+    protected function getResponse($result, string $template): Response
     {
         if (is_object($result) && $result instanceof Response) {
             $response = $result;

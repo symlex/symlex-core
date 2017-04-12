@@ -11,6 +11,7 @@ use Symlex\Router\Exception\NotFoundException;
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
+ * @see https://github.com/symlex/symlex-core#routers
  */
 abstract class Router
 {
@@ -34,7 +35,7 @@ abstract class Router
         return $result;
     }
 
-    public function hasPermission(Request $request)
+    public function hasPermission(Request $request): bool
     {
         return true;
     }

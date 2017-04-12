@@ -10,10 +10,11 @@ use Symlex\Router\Exception\AccessDeniedException;
 /**
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
+ * @see https://github.com/symlex/symlex-core#routers
  */
 class RestRouter extends Router
 {
-    public function route($routePrefix = '/api', $servicePrefix = 'controller.rest.', $servicePostfix = '')
+    public function route(string $routePrefix = '/api', string $servicePrefix = 'controller.rest.', string $servicePostfix = '')
     {
         $app = $this->app;
         $container = $this->container;
@@ -82,7 +83,7 @@ class RestRouter extends Router
         $app->match($routePrefix . '/{path}', $handler)->assert('path', '.+');
     }
 
-    protected function getResponse($result, $httpCode)
+    protected function getResponse($result, int $httpCode): Response
     {
         if (is_object($result) && $result instanceof Response) {
             // If controller returns Response object, return it directly
