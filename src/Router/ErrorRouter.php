@@ -31,17 +31,14 @@ class ErrorRouter
         $this->debug = $debug;
     }
 
-    /**
-     * @return Request
-     */
-    protected function getRequest()
+    protected function getRequest(): Request
     {
         $result = $this->app['request_stack']->getCurrentRequest();
 
         return $result;
     }
 
-    protected function isJsonRequest()
+    protected function isJsonRequest(): bool
     {
         $headers = $this->getRequest()->headers;
 
@@ -62,27 +59,27 @@ class ErrorRouter
     {
         $exceptionCodes = $this->exceptionCodes;
 
-        $this->app->error(function (\Exception $e, $code) use ($exceptionCodes) {
+        $this->app->error(function (\Exception $e) use ($exceptionCodes) {
             $exceptionClass = get_class($e);
 
             if (isset($exceptionCodes[$exceptionClass])) {
-                $code = (int)$exceptionCodes[$exceptionClass];
+                $httpCode = (int)$exceptionCodes[$exceptionClass];
             } else {
-                $code = 500;
+                $httpCode = 500;
             }
 
             if ($this->isJsonRequest()) {
-                return $this->jsonError($e, $code);
+                return $this->jsonError($e, $httpCode);
             } else {
-                return $this->htmlError($e, $code);
+                return $this->htmlError($e, $httpCode);
             }
         });
     }
 
-    protected function getErrorDetails(\Exception $exception, $code)
+    protected function getErrorDetails(\Exception $exception, int $httpCode): array
     {
-        if (isset($this->exceptionMessages[$code])) {
-            $error = $this->exceptionMessages[$code];
+        if (isset($this->exceptionMessages[$httpCode])) {
+            $error = $this->exceptionMessages[$httpCode];
         } else {
             $error = $exception->getMessage();
         }
@@ -109,7 +106,7 @@ class ErrorRouter
         $result = array(
             'error' => $error,
             'message' => $message,
-            'code' => $code,
+            'code' => $httpCode,
             'class' => $class,
             'file' => $file,
             'line' => $line,
@@ -119,23 +116,23 @@ class ErrorRouter
         return $result;
     }
 
-    protected function jsonError(\Exception $exception, $code)
+    protected function jsonError(\Exception $exception, int $httpCode): Response
     {
-        $values = $this->getErrorDetails($exception, $code);
+        $values = $this->getErrorDetails($exception, $httpCode);
 
-        return $this->app->json($values, $code);
+        return $this->app->json($values, $httpCode);
     }
 
-    protected function htmlError(\Exception $exception, $code)
+    protected function htmlError(\Exception $exception, int $httpCode): Response
     {
-        $values = $this->getErrorDetails($exception, $code);
+        $values = $this->getErrorDetails($exception, $httpCode);
 
         try {
-            $result = $this->twig->render('error/' . $code . '.twig', $values);
+            $result = $this->twig->render('error/' . $httpCode . '.twig', $values);
         } catch (Twig_Error_Loader $e) {
             $result = $this->twig->render('error/default.twig', $values);
         }
 
-        return new Response($result, $code);
+        return new Response($result, $httpCode);
     }
 }
