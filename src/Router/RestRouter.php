@@ -18,7 +18,7 @@ class RestRouter extends Router
         $app = $this->app;
         $container = $this->container;
 
-        $handler = function ($path, Request $request) use ($app, $container, $servicePrefix, $servicePostfix) {
+        $handler = function ($path, Request $request) use ($container, $servicePrefix, $servicePostfix) {
             if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
                 $data = json_decode($request->getContent(), true);
                 $request->request->replace(is_array($data) ? $data : array());
@@ -74,14 +74,21 @@ class RestRouter extends Router
                 $httpCode = 200;
             }
 
-            if (is_object($result) && $result instanceof Response) {
-                // If controller returns Response object, return it directly
-                return $result;
-            }
+            $response = $this->getResponse($result, $httpCode);
 
-            return $app->json($result, $httpCode);
+            return $response;
         };
 
         $app->match($routePrefix . '/{path}', $handler)->assert('path', '.+');
+    }
+
+    protected function getResponse($result, $httpCode)
+    {
+        if (is_object($result) && $result instanceof Response) {
+            // If controller returns Response object, return it directly
+            return $result;
+        }
+
+        return $this->app->json($result, $httpCode);
     }
 }

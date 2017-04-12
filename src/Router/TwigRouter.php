@@ -31,7 +31,7 @@ class TwigRouter extends Router
         $app = $this->app;
         $container = $this->container;
 
-        $webRequestHandler = function ($controller, Request $request, $action = '') use ($app, $container, $servicePrefix, $servicePostfix) {
+        $webRequestHandler = function ($controller, Request $request, $action = '') use ($container, $servicePrefix, $servicePostfix) {
             // indexAction is default
             if (!$action) {
                 $action = 'index';
@@ -86,20 +86,14 @@ class TwigRouter extends Router
 
             $result = call_user_func_array(array($controllerInstance, $actionName), $params);
 
-            if (is_object($result) && $result instanceof Response) {
-                $response = $result;
-            } elseif (is_string($result) && $result != '') {
-                $response = $this->redirect($result);
-            } else {
-                $template = $controller . '/' . $subResources . '.twig';
+            $template = $controller . '/' . $subResources . '.twig';
 
-                $response = $this->render($template, (array)$result);
-            }
+            $response = $this->getResponse($result, $template);
 
             return $response;
         };
 
-        $indexRequestHandler = function (Request $request) use ($app, $container, $servicePrefix, $servicePostfix, $webRequestHandler) {
+        $indexRequestHandler = function (Request $request) use ($container, $servicePrefix, $servicePostfix, $webRequestHandler) {
             return $webRequestHandler('index', $request, 'index');
         };
 
@@ -127,5 +121,18 @@ class TwigRouter extends Router
         $this->twig->addGlobal('controller', strtolower($controller));
         $this->twig->addGlobal('action', strtolower($action));
         $this->twig->addGlobal('ajax_request', $isXmlHttpRequest);
+    }
+
+    protected function getResponse($result, $template)
+    {
+        if (is_object($result) && $result instanceof Response) {
+            $response = $result;
+        } elseif (is_string($result) && $result != '') {
+            $response = $this->redirect($result);
+        } else {
+            $response = $this->render($template, (array)$result);
+        }
+
+        return $response;
     }
 }
