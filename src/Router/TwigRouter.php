@@ -84,9 +84,9 @@ class TwigRouter extends Router
                 throw new AccessDeniedException ('Access denied');
             }
 
-            $this->setTwigVariables($controller, $subResources, $request->isXmlHttpRequest());
-
             $result = call_user_func_array(array($controllerInstance, $actionName), $params);
+
+            $this->setTwigVariables($controller, $subResources, $request->isXmlHttpRequest());
 
             $template = $this->getTemplateFilename($controller, $subResources);
 
