@@ -49,6 +49,10 @@ services:
         class: Symlex\Router\TwigRouter
         arguments: [ "@app", "@service_container", "@twig" ]
 
+    router.twig_default:
+        class: Symlex\Router\TwigDefaultRouter
+        arguments: [ "@app", "@service_container", "@twig" ]
+
     router.error:
         class: Symlex\Router\ErrorRouter
         arguments: [ "@app", "@twig", %exception.codes%, %exception.messages%, %debug% ]
