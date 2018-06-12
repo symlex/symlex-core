@@ -33,13 +33,13 @@ services:
 
     twig.loader:
         class: Twig_Loader_Filesystem
-        arguments: [ %twig.path% ]
+        arguments: [ "%twig.path%" ]
 
     twig:
         class: Twig_Environment
-        arguments: [ "@twig.loader", %twig.options% ]
+        arguments: [ "@twig.loader", "%twig.options%" ]
         calls:
-            - [ addGlobal, [ 'debug', %debug% ] ]
+            - [ addGlobal, [ 'debug', "%debug%" ] ]
 
     router.rest:
         class: Symlex\Router\RestRouter
@@ -55,7 +55,7 @@ services:
 
     router.error:
         class: Symlex\Router\ErrorRouter
-        arguments: [ "@app", "@twig", %exception.codes%, %exception.messages%, %debug% ]
+        arguments: [ "@app", "@twig", "%exception.codes%", "%exception.messages%", "%debug%" ]
 
     controller.rest.fake:
         class: Symlex\Tests\Router\FakeRestController

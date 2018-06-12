@@ -2,9 +2,10 @@ parameters:
     twig.path:
         - 'foo/bar'
     twig.options:
-        cache: %app.cache_path%
+        cache: "%app.cache_path%"
         auto_reload: true
 
 services:
     app:
         class: Silex\Application
+        public: true

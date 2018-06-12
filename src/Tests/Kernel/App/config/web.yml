@@ -32,21 +32,27 @@ parameters:
 services:
     app:
         class: Silex\Application
+        public: true
 
     controller.rest.example:
         class: Symlex\Tests\Kernel\App\ExampleRestController
+        public: true
 
     controller.web.index:
         class: Symlex\Tests\Kernel\App\ExampleWebController
+        public: true
 
     router.rest:
         class: Symlex\Router\RestRouter
+        public: true
         arguments: [ "@app", "@service_container" ]
 
     router.twig:
         class: Symlex\Router\TwigRouter
+        public: true
         arguments: [ "@app", "@service_container", "@twig" ]
 
     router.error:
         class: Symlex\Router\ErrorRouter
-        arguments: [ "@app", "@twig", %exception.codes%, %exception.messages%, %app.debug% ]
+        public: true
+        arguments: [ "@app", "@twig", "%exception.codes%", "%exception.messages%", "%app.debug%" ]
