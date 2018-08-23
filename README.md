@@ -87,6 +87,7 @@ There are three router classes included in this library (they configure Silex to
 - `Symlex\Router\RestRouter` handles REST requests (JSON)
 - `Symlex\Router\ErrorRouter` renders exceptions as error messages (HTML or JSON)
 - `Symlex\Router\TwigRouter` renders regular Web pages via Twig (HTML)
+- `Symlex\Router\TwigDefaultRouter` is like TwigRouter but sends all requests to a default controller action (required for client-side routing e.g. with Vue.js)
 
 It's easy to create your own custom routing/rendering based on the existing examples.
 
