@@ -6,7 +6,7 @@ use TestTools\TestCase\UnitTestCase;
 use Symlex\Kernel\WebApp;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class WebAppTest extends UnitTestCase

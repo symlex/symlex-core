@@ -13,7 +13,7 @@ use Symlex\Router\Exception\AccessDeniedException;
 use Symlex\Router\Exception\MethodNotAllowedException;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  * @see https://github.com/symlex/symlex-core#routers
  */

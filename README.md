@@ -3,7 +3,6 @@ Symlex Core: A micro-kernel and router components for Silex
 
 [![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
-[![Total Downloads](https://poser.pugx.org/lastzero/symlex-core/downloads.svg)](https://packagist.org/packages/symlex/symlex-core)
 [![License](https://poser.pugx.org/symlex/symlex-core/license.svg)](https://packagist.org/packages/symlex/symlex-core)
 
 *Note: This repository contains the bootstrap and routers as reusable components. For more information and a 
@@ -14,7 +13,7 @@ Kernel
 
 The light-weight Symlex kernel bootstraps **Silex** (`Symlex\Kernel\WebApp`) and **Symfony Console**
 (`Symlex\Kernel\ConsoleApp`) applications. 
-It's based on the [di-microkernel](https://github.com/lastzero/di-microkernel) library. The kernel itself is just 
+It's based on the [di-microkernel](https://github.com/symlex/di-microkernel) library. The kernel itself is just 
 about 400 lines of code to set a bunch of default parameters for your application and create a service container instance with that.
 
 YAML files located in `config/` configure the application and all of it's dependencies as a service. The filename matches 
@@ -34,6 +33,7 @@ services:
     app:
         class: Symfony\Component\Console\Application
         arguments: [%app.name%, %app.version%]
+        public: true
         calls:
             - [ add, [ "@doctrine.migrations.migrate" ] ]
 ```
@@ -99,23 +99,42 @@ namespace Symlex\Kernel;
 
 class WebApp extends App
 {
+    protected $urlPrefix = '';
+
     public function __construct($appPath, $debug = false)
     {
-        if($debug) {
-            ini_set('display_errors', 1);
-        }
-
         parent::__construct('web', $appPath, $debug);
     }
 
-    public function boot () {
-        parent::boot();
+    public function init()
+    {
+        if ($this->debug) {
+            ini_set('display_errors', 1);
+        }
+    }
 
+    public function getUrlPrefix($urlPrefixPostfix = ''): string
+    {
+        return $this->urlPrefix . $urlPrefixPostfix;
+    }
+
+    public function setUrlPrefix(string $urlPrefix)
+    {
+        $this->urlPrefix = $urlPrefix;
+    }
+
+    protected function setUp()
+    {
         $container = $this->getContainer();
 
+        // The error router catches errors and displays them as error pages
         $container->get('router.error')->route();
-        $container->get('router.rest')->route('/api', 'controller.rest.');
-        $container->get('router.twig')->route('', 'controller.web.');
+
+        // Routing for REST API calls
+        $container->get('router.rest')->route($this->getUrlPrefix('/api'), 'controller.rest.');
+
+        // All other requests are routed to matching controller actions
+        $container->get('router.twig')->route($this->getUrlPrefix(), 'controller.web.');
     }
 }
 ```

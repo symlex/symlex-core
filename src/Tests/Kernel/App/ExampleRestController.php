@@ -5,7 +5,7 @@ namespace Symlex\Tests\Kernel\App;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class ExampleRestController

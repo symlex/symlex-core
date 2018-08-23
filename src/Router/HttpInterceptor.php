@@ -7,7 +7,7 @@ namespace Symlex\Router;
  * authentication or intercepting certain requests (e.g. blocking or
  * redirecting requests coming from specified IP ranges)
  *
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class HttpInterceptor

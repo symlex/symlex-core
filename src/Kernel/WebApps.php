@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symlex\Kernel\Exception\Exception;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class WebApps extends Apps

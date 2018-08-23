@@ -3,35 +3,11 @@
 namespace Symlex\Kernel;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
-class SinglePageApp extends App
+class SinglePageApp extends WebApp
 {
-    protected $urlPrefix = '';
-
-    public function __construct($appPath, $debug = false)
-    {
-        parent::__construct('web', $appPath, $debug);
-    }
-
-    public function init()
-    {
-        if ($this->debug) {
-            ini_set('display_errors', 1);
-        }
-    }
-
-    public function getUrlPrefix($urlPrefixPostfix = '')
-    {
-        return $this->urlPrefix . $urlPrefixPostfix;
-    }
-
-    public function setUrlPrefix($urlPrefix)
-    {
-        $this->urlPrefix = $urlPrefix;
-    }
-
     protected function setUp()
     {
         $container = $this->getContainer();

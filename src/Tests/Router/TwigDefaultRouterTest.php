@@ -8,7 +8,7 @@ use TestTools\TestCase\UnitTestCase;
 use Symlex\Router\TwigDefaultRouter;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class TwigDefaultRouterTest extends UnitTestCase

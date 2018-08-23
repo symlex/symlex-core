@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symlex\Router\Exception\NotFoundException;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  * @see https://github.com/symlex/symlex-core#routers
  */

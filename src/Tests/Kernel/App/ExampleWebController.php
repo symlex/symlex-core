@@ -3,7 +3,7 @@
 namespace Symlex\Tests\Kernel\App;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class ExampleWebController

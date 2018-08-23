@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symlex\Kernel\SinglePageApp;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 class SinglePageAppTest extends WebAppTest

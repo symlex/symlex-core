@@ -8,7 +8,7 @@ use Symlex\Kernel\Exception\Exception;
 use Symfony\Component\Yaml\Parser as YamlParser;
 
 /**
- * @author Michael Mayer <michael@lastzero.net>
+ * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
 abstract class Apps extends App
