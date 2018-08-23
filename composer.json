@@ -25,7 +25,7 @@
         "silex/silex": "^2.3",
         "symlex/di-microkernel": "^1.4",
         "symfony/symfony": "^4.0",
-        "twig/twig": "^1.12"
+        "twig/twig": "^2.5.0"
     },
     "require-dev": {
         "lastzero/test-tools": "^4.0",
