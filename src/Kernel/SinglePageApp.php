@@ -6,7 +6,7 @@ namespace Symlex\Kernel;
  * @author Michael Mayer <michael@lastzero.net>
  * @license MIT
  */
-class WebApp extends App
+class SinglePageApp extends App
 {
     protected $urlPrefix = '';
 
@@ -42,7 +42,7 @@ class WebApp extends App
         // Routing for REST API calls
         $container->get('router.rest')->route($this->getUrlPrefix('/api'), 'controller.rest.');
 
-        // All other requests are routed to matching controller actions
-        $container->get('router.twig')->route($this->getUrlPrefix(), 'controller.web.');
+        // All other requests are routed to a default controller action (client-side routing e.g. with Vue.js)
+        $container->get('router.twig_default')->route($this->getUrlPrefix(), 'controller.web.index', 'index');
     }
 }
