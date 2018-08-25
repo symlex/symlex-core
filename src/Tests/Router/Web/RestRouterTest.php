@@ -1,11 +1,11 @@
 <?php
 
-namespace Symlex\Tests\Router;
+namespace Symlex\Tests\Router\Web;
 
-use Silex\Application;
+use Symlex\Application\Web;
 use Symfony\Component\HttpFoundation\Request;
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Router\RestRouter;
+use Symlex\Router\Web\RestRouter;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
@@ -19,7 +19,7 @@ class RestRouterTest extends UnitTestCase
     protected $router;
 
     /**
-     * @var Application
+     * @var Web
      */
     protected $app;
 
@@ -36,8 +36,8 @@ class RestRouterTest extends UnitTestCase
     public function setUp()
     {
         $this->container = $this->getContainer();
-        $this->app = $this->container->get('app');
-        $this->router = $this->container->get('router.rest');
+        $this->app = $this->container->get('app.web');
+        $this->router = $this->container->get('router.web.rest');
         $this->controller = $this->container->get('controller.rest.fake');
     }
 

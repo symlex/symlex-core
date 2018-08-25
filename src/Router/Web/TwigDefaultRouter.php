@@ -1,11 +1,11 @@
 <?php
 
-namespace Symlex\Router;
+namespace Symlex\Router\Web;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symlex\Router\Exception\NotFoundException;
-use Symlex\Router\Exception\AccessDeniedException;
-use Symlex\Router\Exception\MethodNotAllowedException;
+use Symlex\Exception\NotFoundException;
+use Symlex\Exception\AccessDeniedException;
+use Symlex\Exception\MethodNotAllowedException;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
@@ -19,7 +19,7 @@ class TwigDefaultRouter extends TwigRouter
         $app = $this->app;
         $container = $this->container;
 
-        $handler = function (string $path, Request $request) use ($container, $serviceName, $action) {
+        $handler = function (Request $request) use ($container, $serviceName, $action) {
             $prefix = strtolower($request->getMethod());
 
             $actionName = $prefix . $action . 'Action';
@@ -55,6 +55,6 @@ class TwigDefaultRouter extends TwigRouter
             return $response;
         };
 
-        $app->match($routePrefix . '/{path}', $handler)->assert('path', '.*');
+        $app->match($routePrefix . '/{path}', $handler, ['path' => '.*']);
     }
 }

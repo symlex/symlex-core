@@ -1,25 +1,26 @@
 <?php
 
-namespace Symlex\Router;
+namespace Symlex\Router\Web;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symlex\Router\Exception\MethodNotAllowedException;
-use Symlex\Router\Exception\AccessDeniedException;
+use Symlex\Exception\MethodNotAllowedException;
+use Symlex\Exception\AccessDeniedException;
+use Symlex\Router\RouterAbstract;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  * @see https://github.com/symlex/symlex-core#routers
  */
-class RestRouter extends Router
+class RestRouter extends RouterAbstract
 {
     public function route(string $routePrefix = '/api', string $servicePrefix = 'controller.rest.', string $servicePostfix = '')
     {
         $app = $this->app;
         $container = $this->container;
 
-        $handler = function ($path, Request $request) use ($container, $servicePrefix, $servicePostfix) {
+        $handler = function (Request $request, $path) use ($container, $servicePrefix, $servicePostfix) {
             if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
                 $data = json_decode($request->getContent(), true);
                 $request->request->replace(is_array($data) ? $data : array());
@@ -80,7 +81,7 @@ class RestRouter extends Router
             return $response;
         };
 
-        $app->match($routePrefix . '/{path}', $handler)->assert('path', '.+');
+        $app->match($routePrefix . '/{path}', $handler, ['path' => '.+']);
     }
 
     protected function getResponse($result, int $httpCode): Response

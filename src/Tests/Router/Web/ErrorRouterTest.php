@@ -1,9 +1,9 @@
 <?php
 
-namespace Symlex\Tests\Router;
+namespace Symlex\Tests\Router\Web;
 
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Router\ErrorRouter;
+use Symlex\Router\Web\ErrorRouter;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
@@ -18,7 +18,7 @@ class ErrorRouterTest extends UnitTestCase
 
     public function setUp()
     {
-        $this->router = $this->get('router.error');
+        $this->router = $this->get('router.web.error');
     }
 
     public function testRoute()

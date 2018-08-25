@@ -1,5 +1,5 @@
-Symlex Core: A micro-kernel and router components for Silex
-===========================================================
+Minimalistic kernel, application and router components based on Symfony
+=======================================================================
 
 [![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
@@ -11,15 +11,16 @@ complete framework based on symlex-core please go to https://github.com/symlex/s
 Kernel
 ------
 
-The light-weight Symlex kernel bootstraps **Silex** (`Symlex\Kernel\WebApp`) and **Symfony Console**
-(`Symlex\Kernel\ConsoleApp`) applications. 
-It's based on the [di-microkernel](https://github.com/symlex/di-microkernel) library. The kernel itself is just 
-about 400 lines of code to set a bunch of default parameters for your application and create a service container instance with that.
+The light-weight Symlex kernel can bootstrap almost any application. It is based on the 
+[di-microkernel](https://github.com/symlex/di-microkernel) library. The kernel itself is just 
+about 400 lines of code to set a bunch of default parameters for your application and create a 
+service container instance with that.
 
 YAML files located in `config/` configure the application and all of it's dependencies as a service. The filename matches 
 the application's environment name (e.g. `config/console.yml`). The configuration can additionally be modified 
 for sub environments such as local or production by providing a matching config file like `config/console.local.yml`
-(see `app.sub_environment` parameter). These files are in the same [well documented](https://symfony.com/doc/current/components/dependency_injection.html) format you might know from Symfony:
+(see `app.sub_environment` parameter). These files are in the same [well documented](https://symfony.com/doc/current/components/dependency_injection.html) 
+format you might know from Symfony:
 
 ```yaml
 parameters:
@@ -38,14 +39,16 @@ services:
             - [ add, [ "@doctrine.migrations.migrate" ] ]
 ```
 
-This provides a uniform approach for bootstrapping Web applications like `Silex\Application` or command-line 
-applications like `Symfony\Component\Console\Application` using the same kernel. The result is much cleaner and 
-leaner than the usual bootstrap and configuration madness you know from many frameworks.
+This provides a uniform approach for bootstrapping Web applications such as `Symlex\Application\Web` or command-line 
+applications like `Symfony\Component\Console\Application` (wrapped in `Symlex\Application\Console`) using the same kernel.
+The result is much cleaner and leaner than the usual bootstrap and configuration madness you know from many frameworks.
 
 Caching
 -------
 
-If debug mode is turned off, the service container configuration is cached by the kernel in the directory set as cache path. You have to delete all cache files after updating the configuration. To disable caching completely, add `container.cache: false` to your configuration parameters: 
+If debug mode is turned off, the service container configuration is cached by the kernel in the directory set as cache path. 
+You have to delete all cache files after updating the configuration. To disable caching completely, add 
+`container.cache: false` to your configuration parameters: 
 
 ```yaml
 parameters:
@@ -80,14 +83,15 @@ default:
 
 *Note: Assets in web/ like images, CSS or JavaScript in are not automatically shared in a way Assetic does this with Symfony bundles. If your apps not only provide Web services, you might have to create symbolic links or modify your HTML templates.*
 
-Routers
--------
-There are three router classes included in this library (they configure Silex to perform the actual routing). After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
+Web Routers
+-----------
+There are three router classes included in this library. They configure the Symfony router component to perform the actual routing, so you can expect the same high performance.
+After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
-- `Symlex\Router\RestRouter` handles REST requests (JSON)
-- `Symlex\Router\ErrorRouter` renders exceptions as error messages (HTML or JSON)
-- `Symlex\Router\TwigRouter` renders regular Web pages via Twig (HTML)
-- `Symlex\Router\TwigDefaultRouter` is like TwigRouter but sends all requests to a default controller action (required for client-side routing e.g. with Vue.js)
+- `Symlex\Router\Web\RestRouter` handles REST requests (JSON)
+- `Symlex\Router\Web\ErrorRouter` renders exceptions as error messages (HTML or JSON)
+- `Symlex\Router\Web\TwigRouter` renders regular Web pages via Twig (HTML)
+- `Symlex\Router\Web\TwigDefaultRouter` is like TwigRouter but sends all requests to a default controller action (required for client-side routing e.g. with Vue.js)
 
 It's easy to create your own custom routing/rendering based on the existing examples.
 

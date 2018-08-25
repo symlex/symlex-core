@@ -1,8 +1,9 @@
 <?php
 
-namespace Symlex\Router;
+namespace Symlex\Router\Web;
 
 use Silex\Application;
+use Symlex\Application\Web;
 use Twig_Environment;
 use Twig_Error_Loader;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,23 +20,29 @@ class ErrorRouter
     protected $exceptionCodes = array();
     protected $exceptionMessages = array();
     protected $debug = false;
+    protected $request;
 
-    public function __construct(Application $app, Twig_Environment $twig, array $exceptionCodes, array $exceptionMessages, $debug = false)
+    public function __construct(Web $app, Twig_Environment $twig, array $exceptionCodes, array $exceptionMessages, $debug = false)
     {
         $this->app = $app;
         $this->twig = $twig;
-
         $this->exceptionCodes = $exceptionCodes;
         $this->exceptionMessages = $exceptionMessages;
-
         $this->debug = $debug;
     }
 
     protected function getRequest(): Request
     {
-        $result = $this->app['request_stack']->getCurrentRequest();
+        $result = $this->request;
 
         return $result;
+    }
+
+    protected function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
     }
 
     protected function isJsonRequest(): bool
@@ -59,7 +66,9 @@ class ErrorRouter
     {
         $exceptionCodes = $this->exceptionCodes;
 
-        $this->app->error(function (\Exception $e) use ($exceptionCodes) {
+        $this->app->setErrorCallback(function (Request $request, \Exception $e) use ($exceptionCodes) {
+            $this->setRequest($request);
+
             $exceptionClass = get_class($e);
 
             if (isset($exceptionCodes[$exceptionClass])) {

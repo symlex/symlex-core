@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="{{ code }} {{ error }}">
+    <title>{{ code }} {{ error }}</title>
+</head>
+<body>
+<div>
+    <h1>{{ code }} {{ error }}</h1>
+    <p>{{ message }}</p>
+    <a href="#">Try This Page Again</a>
+</div>
+</div>
+{% if file %}
+    <div>
+        <div>
+            <div>
+<pre>
+{% if class %}Class: {{ class }}
+{% endif %}
+    File: {{ file }}
+    Line: {{ line }}
+</pre>
+                <p>
+                    <strong>Stack trace</strong>
+                </p>
+                <ol>
+                    {% for location in trace %}
+                        <li><code>
+                            {% if location.class %}{{ location.class }}::{% endif %}{% if location.function %}{{ location.function }}(){% endif %}
+                            {% if location.file and location.function %} in {% endif %}
+                            {% if location.file %}{{ location.file }}{% endif %}
+                            {% if location.line %} line {{ location.line }}{% endif %}
+                        </code></li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</body>
+</html>

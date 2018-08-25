@@ -59,6 +59,6 @@ class WebAppsTest extends UnitTestCase
         $this->app->run($request);
         $result = ob_get_clean();
 
-        $this->assertContains('Sorry, the page you are looking for could not be found', $result);
+        $this->assertContains('No routes found for "/foo/api/example/88"', $result);
     }
 }

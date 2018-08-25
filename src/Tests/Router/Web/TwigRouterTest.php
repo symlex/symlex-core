@@ -1,25 +1,27 @@
 <?php
 
-namespace Symlex\Tests\Router;
+namespace Symlex\Tests\Router\Web;
 
-use Silex\Application;
+use Psr\Container\ContainerInterface;
+use Symlex\Application\Web;
 use Symfony\Component\HttpFoundation\Request;
+use Symlex\Tests\Router\FakeWebController;
 use TestTools\TestCase\UnitTestCase;
-use Symlex\Router\TwigDefaultRouter;
+use Symlex\Router\Web\TwigRouter;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
-class TwigDefaultRouterTest extends UnitTestCase
+class TwigRouterTest extends UnitTestCase
 {
     /**
-     * @var TwigDefaultRouter
+     * @var TwigRouter
      */
     protected $router;
 
     /**
-     * @var Application
+     * @var Web
      */
     protected $app;
 
@@ -29,22 +31,22 @@ class TwigDefaultRouterTest extends UnitTestCase
     protected $controller;
 
     /**
-     * @var Container
+     * @var ContainerInterface
      */
     protected $container;
 
     public function setUp()
     {
         $this->container = $this->getContainer();
-        $this->app = $this->container->get('app');
-        $this->router = $this->container->get('router.twig_default');
+        $this->app = $this->container->get('app.web');
+        $this->router = $this->container->get('router.web.twig');
         $this->controller = $this->container->get('controller.web.fake');
     }
 
     public function testIndexRoute()
     {
         $request = Request::create('http://localhost/fake/index');
-        $this->router->route('/', 'controller.web.fake');
+        $this->router->route('/', 'controller.web.');
         $response = $this->app->handle($request);
         $this->assertEquals('indexAction', $response->getContent());
         $this->assertEquals('indexAction', $this->controller->actionName);
@@ -54,7 +56,7 @@ class TwigDefaultRouterTest extends UnitTestCase
     public function testPostIndexRoute()
     {
         $request = Request::create('http://localhost/fake/index', 'POST');
-        $this->router->route('/', 'controller.web.fake');
+        $this->router->route('/', 'controller.web.');
         $response = $this->app->handle($request);
         $this->assertEquals('postIndexAction', $response->getContent());
         $this->assertEquals('postIndexAction', $this->controller->actionName);
@@ -64,10 +66,10 @@ class TwigDefaultRouterTest extends UnitTestCase
     public function testFooRoute()
     {
         $request = Request::create('http://localhost/fake/foo/345', 'GET');
-        $this->router->route('/', 'controller.web.fake');
+        $this->router->route('/', 'controller.web.');
         $response = $this->app->handle($request);
-        $this->assertEquals('indexAction', $response->getContent());
-        $this->assertEquals('indexAction', $this->controller->actionName);
+        $this->assertEquals('fooAction', $response->getContent());
+        $this->assertEquals('fooAction', $this->controller->actionName);
         $this->assertInstanceOf(Request::class, $this->controller->request);
     }
 }

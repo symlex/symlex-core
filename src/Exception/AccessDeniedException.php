@@ -1,6 +1,6 @@
 <?php
 
-namespace Symlex\Router\Exception;
+namespace Symlex\Exception;
 
 class AccessDeniedException extends Exception
 {

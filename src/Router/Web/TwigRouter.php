@@ -1,27 +1,28 @@
 <?php
 
-namespace Symlex\Router;
+namespace Symlex\Router\Web;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Silex\Application;
+use Symlex\Application\Web;
 use Symfony\Component\DependencyInjection\Container;
+use Symlex\Router\RouterAbstract;
 use Twig_Environment;
-use Symlex\Router\Exception\NotFoundException;
-use Symlex\Router\Exception\AccessDeniedException;
-use Symlex\Router\Exception\MethodNotAllowedException;
+use Symlex\Exception\NotFoundException;
+use Symlex\Exception\AccessDeniedException;
+use Symlex\Exception\MethodNotAllowedException;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  * @see https://github.com/symlex/symlex-core#routers
  */
-class TwigRouter extends Router
+class TwigRouter extends RouterAbstract
 {
     protected $twig;
 
-    public function __construct(Application $app, Container $container, Twig_Environment $twig)
+    public function __construct(Web $app, Container $container, Twig_Environment $twig)
     {
         parent::__construct($app, $container);
 
@@ -33,7 +34,7 @@ class TwigRouter extends Router
         $app = $this->app;
         $container = $this->container;
 
-        $webRequestHandler = function (string $controller, Request $request, string $action = '') use ($container, $servicePrefix, $servicePostfix) {
+        $webRequestHandler = function (Request $request, string $controller, string $action = '') use ($container, $servicePrefix, $servicePostfix) {
             // indexAction is default
             if (!$action) {
                 $action = 'index';
@@ -96,12 +97,12 @@ class TwigRouter extends Router
         };
 
         $indexRequestHandler = function (Request $request) use ($container, $servicePrefix, $servicePostfix, $webRequestHandler) {
-            return $webRequestHandler('index', $request, 'index');
+            return $webRequestHandler($request, 'index', 'index');
         };
 
         $app->get($routePrefix . '/', $indexRequestHandler);
         $app->match($routePrefix . '/{controller}', $webRequestHandler);
-        $app->match($routePrefix . '/{controller}/{action}', $webRequestHandler)->assert('action', '.+');
+        $app->match($routePrefix . '/{controller}/{action}', $webRequestHandler, ['action' => '.+']);
     }
 
     protected function render(string $template, array $values, int $httpCode = 200): Response

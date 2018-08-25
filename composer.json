@@ -1,9 +1,8 @@
 {
     "name": "symlex/symlex-core",
-    "description": "A micro-kernel and REST/Twig router components for bootstrapping Silex with the Symfony service container",
+    "description": "Minimalistic kernel, application and router components for the Symlex framework",
     "type": "library",
     "keywords": [
-        "silex",
         "symfony",
         "dependency injection",
         "performance",
@@ -22,7 +21,6 @@
     ],
     "require": {
         "php": ">=7.1",
-        "silex/silex": "^2.3",
         "symlex/di-microkernel": "^1.4",
         "symfony/symfony": "^4.0",
         "twig/twig": "^2.5.0"

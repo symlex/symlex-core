@@ -8,5 +8,5 @@ parameters:
 
 services:
     app:
-        class: Silex\Application
+        class: Symlex\Application\Web
         public: true

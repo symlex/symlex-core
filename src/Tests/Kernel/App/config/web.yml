@@ -9,9 +9,9 @@ parameters:
         Sympathy\Db\NotFoundException: 404
         App\Exception\UnauthorizedException: 401
         App\Exception\AccessDeniedException: 403
-        Symlex\Router\Exception\AccessDeniedException: 403
-        Symlex\Router\Exception\NotFoundException: 404
-        Symlex\Router\Exception\MethodNotAllowedException: 405
+        Symlex\Exception\AccessDeniedException: 403
+        Symlex\Exception\NotFoundException: 404
+        Symlex\Exception\MethodNotAllowedException: 405
         App\Exception\FormInvalidException: 409
         Exception: 500
 
@@ -31,7 +31,7 @@ parameters:
 
 services:
     app:
-        class: Silex\Application
+        class: Symlex\Application\Web
         public: true
 
     controller.rest.example:
@@ -43,21 +43,21 @@ services:
         public: true
 
     router.rest:
-        class: Symlex\Router\RestRouter
+        class: Symlex\Router\Web\RestRouter
         public: true
         arguments: [ "@app", "@service_container" ]
 
     router.twig:
-        class: Symlex\Router\TwigRouter
+        class: Symlex\Router\Web\TwigRouter
         public: true
         arguments: [ "@app", "@service_container", "@twig" ]
 
     router.twig_default:
-        class: Symlex\Router\TwigDefaultRouter
+        class: Symlex\Router\Web\TwigDefaultRouter
         public: true
         arguments: [ "@app", "@service_container", "@twig" ]
 
     router.error:
-        class: Symlex\Router\ErrorRouter
+        class: Symlex\Router\Web\ErrorRouter
         public: true
         arguments: [ "@app", "@twig", "%exception.codes%", "%exception.messages%", "%app.debug%" ]
