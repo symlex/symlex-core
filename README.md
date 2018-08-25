@@ -1,5 +1,5 @@
-Minimalistic kernel, application and router components based on Symfony
-=======================================================================
+Minimalistic kernel, application and router components for Symfony
+==================================================================
 
 [![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
