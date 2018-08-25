@@ -1,6 +1,6 @@
 {
     "name": "symlex/symlex-core",
-    "description": "Minimalistic kernel, application and router components for the Symlex framework",
+    "description": "Minimalistic kernel, application and router components for Symfony",
     "type": "library",
     "keywords": [
         "symfony",
