@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symlex\Exception\MethodNotAllowedException;
 use Symlex\Exception\AccessDeniedException;
-use Symlex\Router\RouterAbstract;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>

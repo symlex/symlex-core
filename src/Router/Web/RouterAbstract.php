@@ -1,11 +1,12 @@
 <?php
 
-namespace Symlex\Router;
+namespace Symlex\Router\Web;
 
 use Psr\Container\ContainerInterface;
 use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symlex\Application\Web;
 use Symlex\Exception\NotFoundException;
 
 /**
@@ -18,7 +19,7 @@ abstract class RouterAbstract
     protected $app;
     protected $container;
 
-    public function __construct($app, ContainerInterface $container)
+    public function __construct(Web $app, ContainerInterface $container)
     {
         $this->app = $app;
         $this->container = $container;

@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symlex\Application\Web;
 use Symfony\Component\DependencyInjection\Container;
-use Symlex\Router\RouterAbstract;
 use Twig_Environment;
 use Symlex\Exception\NotFoundException;
 use Symlex\Exception\AccessDeniedException;
