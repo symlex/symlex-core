@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "symlex/di-microkernel": "^1.4",
+        "symlex/di-microkernel": "^2.0",
         "symfony/symfony": "^4.0",
         "twig/twig": "^2.5.0"
     },
