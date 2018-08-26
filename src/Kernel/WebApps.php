@@ -3,7 +3,7 @@
 namespace Symlex\Kernel;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symlex\Kernel\Exception\Exception;
+use Symlex\Exception\KernelException;
 
 /**
  * @author Michael Mayer <michael@liquidbytes.net>
@@ -57,7 +57,7 @@ class WebApps extends Apps
         }
 
         if (!$result) {
-            throw new Exception('Could not find matching app and no default app configured');
+            throw new KernelException('Could not find matching app and no default app configured');
         }
 
         return $result;
@@ -77,7 +77,7 @@ class WebApps extends Apps
         $config = $this->getGuestAppConfig();
 
         if (!isset($config['bootstrap'])) {
-            throw new Exception('"bootstrap" parameter must be set to a valid class name');
+            throw new KernelException('"bootstrap" parameter must be set to a valid class name');
         }
 
         $guestAppClass = $config['bootstrap'];

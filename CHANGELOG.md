@@ -4,12 +4,14 @@ Changelog
 Release 4
 ---------
 
+* 4.1.0 Moved `Symlex\Kernel\Exception\Exception` to `Symlex\Exception\KernelException` (was only used by `Symlex\Kernel\Apps`)
+
 * 4.0.1 Upgraded symlex/di-microkernel to ^2.0
 
 * 4.0.0 Removed Silex and added Symlex\Application\Web as replacement
     - Router callback parameter order changed slightly (Request is always first)
     - Routers moved to the `Symlex\Router\Web` namespace    
-    - All exceptions moved to the `Symlex\Exception` namespace
+    - Exceptions moved to the `Symlex\Exception` namespace
     - `Symlex\Application\Console` wraps Symfony Console for consistent naming (optional)
 
 Release 3

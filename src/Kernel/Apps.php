@@ -4,7 +4,7 @@ namespace Symlex\Kernel;
 
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
-use Symlex\Kernel\Exception\Exception;
+use Symlex\Exception\KernelException;
 use Symfony\Component\Yaml\Parser as YamlParser;
 
 /**
@@ -166,7 +166,7 @@ abstract class Apps extends App
         if ($guestApp instanceof App) {
             $guestApp->setContainer($this->getContainer());
         } else {
-            throw new Exception('Guest app must be an instance of \Symlex\Kernel\App');
+            throw new KernelException('Guest app must be an instance of \Symlex\Kernel\App');
         }
 
         $this->configureGuestApp($guestApp);
