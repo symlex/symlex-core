@@ -8,8 +8,9 @@ Release 4
 
 * 4.0.0 Removed Silex and added Symlex\Application\Web as replacement
     - Router callback parameter order changed slightly (Request is always first)
-    - Routers moved to the Symlex\Router\Web namespace
-    - Symlex\Application\Console wraps the Symfony console app for consistent naming
+    - Routers moved to the `Symlex\Router\Web` namespace    
+    - All exceptions moved to the `Symlex\Exception` namespace
+    - `Symlex\Application\Console` wraps Symfony Console for consistent naming (optional)
 
 Release 3
 ---------
