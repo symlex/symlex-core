@@ -4,6 +4,8 @@ Changelog
 Release 4
 ---------
 
+* 4.0.1 Upgraded symlex/di-microkernel to ^2.0
+
 * 4.0.0 Removed Silex and added Symlex\Application\Web as replacement
     - Router callback parameter order changed slightly (Request is always first)
     - Routers moved to the Symlex\Router\Web namespace
