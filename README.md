@@ -12,9 +12,8 @@ Kernel
 ------
 
 The light-weight Symlex kernel can bootstrap almost any application. It is based on the 
-[di-microkernel](https://github.com/symlex/di-microkernel) library. The kernel itself is just 
-about 400 lines of code to set a bunch of default parameters for your application and create a 
-service container instance with that.
+[di-microkernel](https://github.com/symlex/di-microkernel) library. The kernel itself is just a few lines 
+to set environment parameters, initialize the Symfony service container and then start the app by calling `run()`.
 
 YAML files located in `config/` configure the application and all of it's dependencies as a service. The filename matches 
 the application's environment name (e.g. `config/console.yml`). The configuration can additionally be modified 
