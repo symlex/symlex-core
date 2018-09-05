@@ -55,7 +55,7 @@ class TwigRouterTest extends UnitTestCase
 
     public function testPostIndexRoute()
     {
-        $request = Request::create('http://localhost/fake/index', 'POST');
+        $request = Request::create('http://localhost/fake/index', Request::METHOD_POST);
         $this->router->route('/', 'controller.web.');
         $response = $this->app->handle($request);
         $this->assertEquals('postIndexAction', $response->getContent());
@@ -63,9 +63,19 @@ class TwigRouterTest extends UnitTestCase
         $this->assertInstanceOf(Request::class, $this->controller->request);
     }
 
-    public function testFooRoute()
+    public function testGetFooRoute()
     {
-        $request = Request::create('http://localhost/fake/foo/345', 'GET');
+        $request = Request::create('http://localhost/fake/foo/345', Request::METHOD_GET);
+        $this->router->route('/', 'controller.web.');
+        $response = $this->app->handle($request);
+        $this->assertEquals('fooAction', $response->getContent());
+        $this->assertEquals('fooAction', $this->controller->actionName);
+        $this->assertInstanceOf(Request::class, $this->controller->request);
+    }
+
+    public function testHeadFooRoute()
+    {
+        $request = Request::create('http://localhost/fake/foo/345', Request::METHOD_HEAD);
         $this->router->route('/', 'controller.web.');
         $response = $this->app->handle($request);
         $this->assertEquals('fooAction', $response->getContent());

@@ -77,6 +77,23 @@ class SymfonyRouterTest extends UnitTestCase
         $this->assertEquals(999, $result->getContent());
     }
 
+    public function testHeadRequest()
+    {
+        $container = $this->getContainer();
+        /** @var Web $app */
+        $app = $container->get('app.web');
+
+        $app->get('/foo/{id}', 'Symlex\Tests\Application\SymfonyRouterTest::callableMethod');
+
+        $request = Request::create('/foo/999', 'HEAD');
+
+        ob_start();
+        $app->run($request);
+        $result = ob_get_clean();
+
+        $this->assertEquals(999, $result);
+    }
+
     public function testHandleError()
     {
         $container = $this->getContainer();

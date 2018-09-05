@@ -20,7 +20,8 @@ class TwigDefaultRouter extends TwigRouter
         $container = $this->container;
 
         $handler = function (Request $request) use ($container, $serviceName, $action) {
-            $prefix = strtolower($request->getMethod());
+            $method = $request->getMethod();
+            $prefix = strtolower($method);
 
             $actionName = $prefix . $action . 'Action';
 
@@ -28,7 +29,7 @@ class TwigDefaultRouter extends TwigRouter
 
             $controllerInstance = $this->getController($serviceName);
 
-            if ($prefix == 'get' && !method_exists($controllerInstance, $actionName)) {
+            if (($method === Request::METHOD_GET || $method === Request::METHOD_HEAD) && !method_exists($controllerInstance, $actionName)) {
                 $actionName = $action . 'Action';
             }
 

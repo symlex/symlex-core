@@ -43,7 +43,7 @@ class RestRouterTest extends UnitTestCase
 
     public function testCgetRoute()
     {
-        $request = Request::create('http://localhost/api/fake');
+        $request = Request::create('http://localhost/api/fake', Request::METHOD_GET);
         $this->router->route('/api', 'controller.rest.');
         $response = $this->app->handle($request);
         $result = json_decode($response->getContent(), true);
@@ -58,7 +58,23 @@ class RestRouterTest extends UnitTestCase
 
     public function testGetRoute()
     {
-        $request = Request::create('http://localhost/api/fake/345');
+        $request = Request::create('http://localhost/api/fake/345', Request::METHOD_GET);
+        $this->router->route('/api', 'controller.rest.');
+        $response = $this->app->handle($request);
+        $result = json_decode($response->getContent(), true);
+        $this->assertEquals('getAction', $this->controller->actionName);
+        $this->assertInstanceOf(Request::class, $this->controller->request);
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('request', $result);
+        $this->assertArrayHasKey('actionName', $result);
+        $this->assertEquals('getAction', $result['actionName']);
+        $this->assertEquals(345, $result['id']);
+        $this->assertInternalType('array', $result['request']);
+    }
+
+    public function testHeadRoute()
+    {
+        $request = Request::create('http://localhost/api/fake/345', Request::METHOD_HEAD);
         $this->router->route('/api', 'controller.rest.');
         $response = $this->app->handle($request);
         $result = json_decode($response->getContent(), true);
@@ -74,7 +90,7 @@ class RestRouterTest extends UnitTestCase
 
     public function testOptionsCommentRoute()
     {
-        $request = Request::create('http://localhost/api/fake/345/comment/1', 'OPTIONS');
+        $request = Request::create('http://localhost/api/fake/345/comment/1', Request::METHOD_OPTIONS);
         $this->router->route('/api', 'controller.rest.');
         $response = $this->app->handle($request);
         $result = json_decode($response->getContent(), true);

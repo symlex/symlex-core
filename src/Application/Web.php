@@ -336,7 +336,7 @@ class Web
      */
     public function get(string $pattern, $callback, array $requirements = [])
     {
-        return $this->match($pattern, $callback, $requirements, [Request::METHOD_GET]);
+        return $this->match($pattern, $callback, $requirements, [Request::METHOD_GET, Request::METHOD_HEAD]);
     }
 
     /**

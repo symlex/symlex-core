@@ -44,7 +44,8 @@ class TwigRouter extends RouterAbstract
                 $action = substr($action, 0, -5);
             }
 
-            $prefix = strtolower($request->getMethod());
+            $method = $request->getMethod();
+            $prefix = strtolower($method);
             $parts = explode('/', $action);
 
             $subResources = '';
@@ -68,7 +69,7 @@ class TwigRouter extends RouterAbstract
 
             $controllerInstance = $this->getController($controllerService);
 
-            if ($prefix == 'get' && !method_exists($controllerInstance, $actionName)) {
+            if (($method === Request::METHOD_GET || $method === Request::METHOD_HEAD) && !method_exists($controllerInstance, $actionName)) {
                 $actionName = $subResources . 'Action';
             }
 
