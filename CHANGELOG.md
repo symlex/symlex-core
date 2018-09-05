@@ -4,6 +4,8 @@ Changelog
 Release 4
 ---------
 
+* 4.1.1 Routers handle HEAD requests like GET requests
+
 * 4.1.0 Moved `Symlex\Kernel\Exception\Exception` to `Symlex\Exception\KernelException` (was only used by `Symlex\Kernel\Apps`)
 
 * 4.0.1 Upgraded symlex/di-microkernel to ^2.0
