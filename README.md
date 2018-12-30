@@ -8,6 +8,11 @@ Minimalistic kernel, application and router components for Symfony
 *Note: This repository contains the bootstrap and routers as reusable components. For more information and a 
 complete framework based on symlex-core please go to https://github.com/symlex/symlex*
 
+As published by [phpbenchmarks.com](http://www.phpbenchmarks.com/en/benchmark/apache-bench/php-7.3/symlex-4.1.html), 
+Symlex is [42% faster](https://github.com/symlex/symlex#performance) than the next best PHP framework:
+
+![](https://symlex.org/images/performance.svg)
+
 Kernel
 ------
 
