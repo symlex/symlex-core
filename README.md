@@ -2,6 +2,7 @@ Minimalistic Kernel and Router based on Symfony Components
 ==========================================================
 
 [![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
+[![Test Coverage](https://codecov.io/gh/symlex/symlex-core/branch/master/graph/badge.svg)](https://codecov.io/gh/symlex/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
 [![License](https://poser.pugx.org/symlex/symlex-core/license.svg)](https://packagist.org/packages/symlex/symlex-core)
 
