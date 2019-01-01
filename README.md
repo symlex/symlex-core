@@ -1,12 +1,12 @@
-Minimalistic kernel, application and router components for Symfony
-==================================================================
+Minimalistic Kernel and Router based on Symfony Components
+==========================================================
 
 [![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
 [![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
 [![License](https://poser.pugx.org/symlex/symlex-core/license.svg)](https://packagist.org/packages/symlex/symlex-core)
 
-*Note: This repository contains the bootstrap and routers as reusable components. For more information and a 
-complete framework based on symlex-core please go to https://github.com/symlex/symlex*
+*Note: This repository contains the kernel and routers as reusable components. For more information and a 
+complete framework based on symlex-core please see https://github.com/symlex/symlex*
 
 As published by [phpbenchmarks.com](http://www.phpbenchmarks.com/en/benchmark/apache-bench/php-7.3/symlex-4.1.html), 
 Symlex currently adds [42% less overhead](https://github.com/symlex/symlex/blob/master/README.md#performance) 
@@ -14,10 +14,9 @@ to REST requests than the next best PHP framework:
 
 <img src="https://symlex.org/images/performance-large.svg" width="100%">
 
-Kernel
-------
+## Kernel ##
 
-The light-weight Symlex kernel can bootstrap almost any application. It is based on the 
+The light-weight Symlex kernel can bootstrap almost any application. It is based on our 
 [di-microkernel](https://github.com/symlex/di-microkernel) library. The kernel itself is just a few lines 
 to set environment parameters, initialize the Symfony service container and then start the app by calling `run()`.
 
@@ -48,48 +47,19 @@ This provides a uniform approach for bootstrapping Web applications such as `Sym
 applications like `Symfony\Component\Console\Application` (wrapped in `Symlex\Application\Console`) using the same kernel.
 The result is much cleaner and leaner than the usual bootstrap and configuration madness you know from many frameworks.
 
-Caching
--------
+### Disable Caching ###
 
 If debug mode is turned off, the service container configuration is cached by the kernel in the directory set as cache path. 
 You have to delete all cache files after updating the configuration. To disable caching completely, add 
-`container.cache: false` to your configuration parameters: 
+`container.cache: false` to your config parameters:
 
 ```yaml
 parameters:
     container.cache: false
 ```
 
-Web App Container
------------------
+## Routers ##
 
-As an alternative to Symfony bundles, `Symlex\Kernel\WebApps` is capable of running multiple apps based on `Symlex\Kernel\App` on the same Symlex installation:
-
-```php
-$app = new WebApps('web', __DIR__ . '/../app', false);
-$app->run();
-```
-
-It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex apps according to the configuration in `app/config/web.guests.yml` (path, debug, prefix and domain are optional; bootstrap and config are required):
-
-```yaml
-example:
-    prefix: /example
-    domain: www.example.com
-    bootstrap: \Symlex\Kernel\WebApp
-    config: web.yml
-    debug: true
-    path: vendors/foo/bar/app
-
-default:
-    bootstrap: \Symlex\Kernel\WebApp
-    config: web.default.yml
-```
-
-*Note: Assets in web/ like images, CSS or JavaScript in are not automatically shared in a way Assetic does this with Symfony bundles. If your apps not only provide Web services, you might have to create symbolic links or modify your HTML templates.*
-
-Web Routers
------------
 There are three router classes included in this library. They configure the Symfony router component to perform the actual routing, so you can expect the same high performance.
 After routing a request to the appropriate controller action, the router subsequently renders the response to ease controller testing (actions never directly return JSON or HTML):
 
@@ -168,8 +138,8 @@ Controller actions invoked by **TwigRouter** can either return nothing (the matc
 
 REST controller actions (invoked by **RestRouter**) always return arrays, which are automatically converted to valid JSON. Delete actions can return null ("204 No Content").
 
-Interceptors
-------------
+## Interceptors ##
+
 HTTP interceptors can be used to perform HTTP authentication or other actions (e.g. blocking certain IP ranges) **before** routing a request:
 
 ```php
@@ -206,3 +176,49 @@ class WebApp extends App
 }
 ```
 
+## Run multiple kernels via `Symlex\Kernel\WebApps` ##
+
+*Note: This is an experimental proof-of-concept. Feedback welcome.*
+
+As an alternative to Symfony bundles, `Symlex\Kernel\WebApps` is capable of running multiple apps based on `Symlex\Kernel\App` on the same Symlex installation:
+
+```php
+$app = new WebApps('web', __DIR__ . '/../app', false);
+$app->run();
+```
+
+It's bootstrapped like a regular WebApp and subsequently bootstaps other Symlex apps according to the configuration in `app/config/web.guests.yml` (path, debug, prefix and domain are optional; bootstrap and config are required):
+
+```yaml
+example:
+    prefix: /example
+    domain: www.example.com
+    bootstrap: \Symlex\Kernel\WebApp
+    config: web.yml
+    debug: true
+    path: vendors/foo/bar/app
+
+default:
+    bootstrap: \Symlex\Kernel\WebApp
+    config: web.default.yml
+```
+
+*Note: Assets in web/ like images, CSS or JavaScript in are not automatically shared in a way Assetic does this with Symfony bundles. If your apps not only provide Web services, you might have to create symbolic links or modify your HTML templates.*
+
+## About ##
+
+Symlex is maintained by [Michael Mayer](https://blog.liquidbytes.net/about) and
+aims to simplify agile Web development by providing a working system that promotes best practices by example.
+Michael released his [first PHP framework](http://freshmeat.sourceforge.net/projects/awf) in 2001 and 
+has previously worked with major framework vendors.
+Building this would not have been possible without a lot of prior work by other developers.
+Thank you to those and everyone who contributed!
+
+Feel free to send an e-mail to [hello@symlex.org](mailto:hello@symlex.org) if you have any questions, 
+need [commercial support](https://blog.liquidbytes.net/contact/) or just want to say hello. 
+Contributions are welcome, even if it's just a tiny pull-request or bug report.
+
+## Donations ##
+
+Please leave a star if you like this project, it provides enough motivation to keep going.
+Thank you very much! <3

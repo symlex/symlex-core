@@ -1,13 +1,15 @@
 {
     "name": "symlex/symlex-core",
-    "description": "Minimalistic kernel, application and router components for Symfony",
+    "description": "Minimalistic Kernel and Router based on Symfony Components",
     "type": "library",
     "keywords": [
         "symfony",
         "dependency injection",
         "performance",
         "micro-framework",
-        "rest"
+        "rest",
+        "router",
+        "kernel"
     ],
     "license": "MIT",
     "homepage": "https://github.com/symlex/symlex-core",

@@ -4,6 +4,8 @@ Changelog
 Release 4
 ---------
 
+* 4.2.0 Tested with Symfony 4.2.1 and PHP 7.3 (upgraded from 4.1 and 7.2)
+
 * 4.1.1 Routers handle HEAD requests like GET requests
 
 * 4.1.0 Moved `Symlex\Kernel\Exception\Exception` to `Symlex\Exception\KernelException` (was only used by `Symlex\Kernel\Apps`)
