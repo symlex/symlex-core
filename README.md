@@ -1,5 +1,5 @@
-Minimalistic Kernel and Router based on Symfony Components
-==========================================================
+Minimalistic Kernel and Routers based on Symfony Components
+===========================================================
 
 [![Latest Stable Version](https://poser.pugx.org/symlex/symlex-core/v/stable.svg)](https://packagist.org/packages/symlex/symlex-core)
 [![License](https://poser.pugx.org/symlex/symlex-core/license.svg)](https://packagist.org/packages/symlex/symlex-core)
