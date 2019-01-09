@@ -6,6 +6,7 @@ Minimalistic Kernel and Routers based on Symfony Components
 [![Test Coverage](https://codecov.io/gh/symlex/symlex-core/branch/master/graph/badge.svg)](https://codecov.io/gh/symlex/symlex-core)
 [![Build Status](https://travis-ci.org/symlex/symlex-core.png?branch=master)](https://travis-ci.org/symlex/symlex-core)
 [![Documentation](https://readthedocs.org/projects/symlex-docs/badge/?version=latest&style=flat)](https://docs.symlex.org/en/latest/)
+[![Community Chat](https://badges.gitter.im/symlex/community.png)](https://gitter.im/symlex/community)
 
 *Note: This repository contains the kernel and routers as reusable components. For more information and a 
 complete framework based on symlex-core please see https://github.com/symlex/symlex*
