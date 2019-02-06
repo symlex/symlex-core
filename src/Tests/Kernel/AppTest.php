@@ -16,7 +16,7 @@ class AppTest extends UnitTestCase
      */
     protected $app;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->app = new App('symlex_test', __DIR__ . '/App', true);
     }
@@ -48,7 +48,7 @@ class AppTest extends UnitTestCase
     public function testGetAppParameters()
     {
         $result = $this->app->getContainerParameters();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('app.name', $result);
         $this->assertArrayHasKey('app.version', $result);
         $this->assertArrayHasKey('app.environment', $result);

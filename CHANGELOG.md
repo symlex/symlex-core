@@ -4,7 +4,9 @@ Changelog
 Release 4
 ---------
 
-* 4.2.0 Tested with Symfony 4.2.1 and PHP 7.3 (upgraded from 4.1 and 7.2)
+* 4.2.0 Tested with Symfony 4.2.3 and PHP 7.3 (upgraded from 4.1 and 7.2)
+        Upgraded to TestTools 5.0 and PHPUnit 8.0
+        Fix for handing collection HEAD requests (now forwarded to cgetAction instead of getAction) 
 
 * 4.1.1 Routers handle HEAD requests like GET requests
 

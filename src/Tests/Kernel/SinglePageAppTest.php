@@ -16,7 +16,7 @@ class SinglePageAppTest extends WebAppTest
      */
     protected $app;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->app = new SinglePageApp(__DIR__ . '/App', true);
     }

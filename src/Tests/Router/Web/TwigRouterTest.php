@@ -35,7 +35,7 @@ class TwigRouterTest extends UnitTestCase
      */
     protected $container;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = $this->getContainer();
         $this->app = $this->container->get('app.web');

@@ -29,7 +29,7 @@ class WebAppsTest extends UnitTestCase
         $this->app->run($request);
         $result = ob_get_clean();
 
-        $this->assertContains('{"id":"99","foo":"baz"}', $result);
+        $this->assertStringContainsString('{"id":"99","foo":"baz"}', $result);
     }
 
     public function testRunExampleCom()
@@ -44,7 +44,7 @@ class WebAppsTest extends UnitTestCase
         $this->app->run($request);
         $result = ob_get_clean();
 
-        $this->assertContains('{"id":"88","foo":"baz"}', $result);
+        $this->assertStringContainsString('{"id":"88","foo":"baz"}', $result);
     }
 
     public function testRunNotFound()
@@ -59,6 +59,6 @@ class WebAppsTest extends UnitTestCase
         $this->app->run($request);
         $result = ob_get_clean();
 
-        $this->assertContains('No routes found for "/foo/api/example/88"', $result);
+        $this->assertStringContainsString('No routes found for "/foo/api/example/88"', $result);
     }
 }

@@ -16,7 +16,7 @@ class ErrorRouterTest extends UnitTestCase
      */
     protected $router;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->router = $this->get('router.web.error');
     }

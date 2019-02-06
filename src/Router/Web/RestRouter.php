@@ -59,6 +59,10 @@ class RestRouter extends RouterAbstract
 
             if ($method === Request::METHOD_HEAD && !method_exists($controllerInstance, $actionName)) {
                 $actionName = 'get' . $subResources . 'Action';
+
+                if ($count % 2 == 0) {
+                    $actionName = 'c' . $actionName;
+                }
             }
 
             if (!method_exists($controllerInstance, $actionName)) {

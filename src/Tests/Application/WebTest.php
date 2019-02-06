@@ -118,6 +118,6 @@ class SymfonyRouterTest extends UnitTestCase
 
         $result = $app->handle($request);
 
-        $this->assertContains('<h1>500 Looks like something went wrong!</h1>', $result->getContent());
+        $this->assertStringContainsString('<h1>500 Looks like something went wrong!</h1>', $result->getContent());
     }
 }

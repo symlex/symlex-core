@@ -33,7 +33,7 @@ class RestRouterTest extends UnitTestCase
      */
     protected $container;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = $this->getContainer();
         $this->app = $this->container->get('app.web');
@@ -49,11 +49,11 @@ class RestRouterTest extends UnitTestCase
         $result = json_decode($response->getContent(), true);
         $this->assertEquals('cgetAction', $this->controller->actionName);
         $this->assertInstanceOf(Request::class, $this->controller->request);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('request', $result);
         $this->assertArrayHasKey('actionName', $result);
         $this->assertEquals('cgetAction', $result['actionName']);
-        $this->assertInternalType('array', $result['request']);
+        $this->assertIsArray($result['request']);
     }
 
     public function testGetRoute()
@@ -64,12 +64,12 @@ class RestRouterTest extends UnitTestCase
         $result = json_decode($response->getContent(), true);
         $this->assertEquals('getAction', $this->controller->actionName);
         $this->assertInstanceOf(Request::class, $this->controller->request);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('request', $result);
         $this->assertArrayHasKey('actionName', $result);
         $this->assertEquals('getAction', $result['actionName']);
         $this->assertEquals(345, $result['id']);
-        $this->assertInternalType('array', $result['request']);
+        $this->assertIsArray($result['request']);
     }
 
     public function testHeadRoute()
@@ -80,12 +80,27 @@ class RestRouterTest extends UnitTestCase
         $result = json_decode($response->getContent(), true);
         $this->assertEquals('getAction', $this->controller->actionName);
         $this->assertInstanceOf(Request::class, $this->controller->request);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('request', $result);
         $this->assertArrayHasKey('actionName', $result);
         $this->assertEquals('getAction', $result['actionName']);
         $this->assertEquals(345, $result['id']);
-        $this->assertInternalType('array', $result['request']);
+        $this->assertIsArray($result['request']);
+    }
+
+    public function testCHeadRoute()
+    {
+        $request = Request::create('http://localhost/api/fake', Request::METHOD_HEAD);
+        $this->router->route('/api', 'controller.rest.');
+        $response = $this->app->handle($request);
+        $result = json_decode($response->getContent(), true);
+        $this->assertEquals('cgetAction', $this->controller->actionName);
+        $this->assertInstanceOf(Request::class, $this->controller->request);
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('request', $result);
+        $this->assertArrayHasKey('actionName', $result);
+        $this->assertEquals('cgetAction', $result['actionName']);
+        $this->assertIsArray($result['request']);
     }
 
     public function testOptionsCommentRoute()
@@ -96,12 +111,12 @@ class RestRouterTest extends UnitTestCase
         $result = json_decode($response->getContent(), true);
         $this->assertEquals('optionsCommentAction', $this->controller->actionName);
         $this->assertInstanceOf(Request::class, $this->controller->request);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('request', $result);
         $this->assertArrayHasKey('actionName', $result);
         $this->assertEquals('optionsCommentAction', $result['actionName']);
         $this->assertEquals(345, $result['id']);
         $this->assertEquals(1, $result['commentId']);
-        $this->assertInternalType('array', $result['request']);
+        $this->assertIsArray($result['request']);
     }
 }
