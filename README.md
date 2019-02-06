@@ -12,10 +12,13 @@ Minimalistic Kernel and Routers based on Symfony Components
 complete framework based on symlex-core please see https://github.com/symlex/symlex*
 
 As published by [phpbenchmarks.com](http://www.phpbenchmarks.com/en/benchmark/apache-bench/php-7.3/symlex-4.1.html), 
-Symlex currently adds [42% less overhead](https://github.com/symlex/symlex/blob/master/README.md#performance) 
-to REST requests than the next best PHP framework:
+Symlex adds [significantly less overhead](https://github.com/symlex/symlex/blob/master/README.md#performance) to REST 
+requests than other common PHP frameworks:
 
 <img src="https://symlex.org/images/performance-large.svg" width="100%">
+
+Our complete framework documentation can be found on [docs.symlex.org](https://docs.symlex.org/en/latest/).
+[Tuzi Liu](https://github.com/tuzimoe) maintains a [Chinese translation](https://docs.symlex.org/zh/latest/) for us.
 
 ## Kernel ##
 
