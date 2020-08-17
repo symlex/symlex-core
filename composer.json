@@ -22,9 +22,9 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "symlex/di-microkernel": "^2.0",
-        "symfony/symfony": "^4.0",
+        "symfony/symfony": "^4.4",
         "twig/twig": "^2.5.0"
     },
     "require-dev": {
