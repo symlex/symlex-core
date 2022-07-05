@@ -31,6 +31,6 @@ class AppCacheTest extends TestCase
         $app = new App('symlex_test_nocache', __DIR__ . '/App', false);
         $result = $app->getContainer();
         $this->assertInstanceOf('\Symfony\Component\DependencyInjection\Container', $result);
-        $this->assertFileNotExists($app->getContainerCacheFilename());
+        $this->assertFileDoesNotExist($app->getContainerCacheFilename());
     }
 }
