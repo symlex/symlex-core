@@ -2,7 +2,6 @@
 
 namespace Symlex\Tests\Application;
 
-use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symlex\Router\Web\ErrorRouter;
@@ -13,7 +12,7 @@ use Symlex\Application\Web;
  * @author Michael Mayer <michael@liquidbytes.net>
  * @license MIT
  */
-class SymfonyRouterTest extends UnitTestCase
+class WebTest extends UnitTestCase
 {
     public function testHandle()
     {
@@ -68,7 +67,7 @@ class SymfonyRouterTest extends UnitTestCase
         /** @var Web $app */
         $app = $container->get('app.web');
 
-        $app->get('/foo/{id}', 'Symlex\Tests\Application\SymfonyRouterTest::callableMethod');
+        $app->get('/foo/{id}', 'Symlex\Tests\Application\WebTest::callableMethod');
 
         $request = Request::create('/foo/999', 'GET');
 
@@ -83,7 +82,7 @@ class SymfonyRouterTest extends UnitTestCase
         /** @var Web $app */
         $app = $container->get('app.web');
 
-        $app->get('/foo/{id}', 'Symlex\Tests\Application\SymfonyRouterTest::callableMethod');
+        $app->get('/foo/{id}', 'Symlex\Tests\Application\WebTest::callableMethod');
 
         $request = Request::create('/foo/999', 'HEAD');
 
